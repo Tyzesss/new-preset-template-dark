@@ -126,4 +126,4 @@ scripts/generate-seo-files.mjs
 
 ---
 
-Szczegółowy przewodnik: [TEMPLATE.md](./TEMPLATE.md)
+Szczegółowy przewodnik: [TEMPLATE.md](./TEMPLATE.md) · Prompt do leadów: [PROMPT-PERSONALIZACJA.md](./PROMPT-PERSONALIZACJA.md)

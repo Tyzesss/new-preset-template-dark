@@ -1,0 +1,42 @@
+import { useEffect, useState } from "react";
+import { Phone } from "lucide-react";
+
+import { WhatsAppIcon } from "@/components/WhatsAppIcon";
+import { PHONE_HREF, WHATSAPP_HREF } from "@/lib/site";
+import { cn } from "@/lib/utils";
+
+export function StickyCallBar() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => setShow(window.scrollY > 150);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  return (
+    <div
+      className={cn(
+        "relative fixed left-4 right-4 z-50 flex gap-3 rounded-2xl border border-white/15 bg-background/95 p-3 shadow-cool backdrop-blur-xl transition-all duration-500 ease-out md:hidden",
+        "before:pointer-events-none before:absolute before:inset-x-4 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-brand-cyan/40 before:to-transparent",
+        show ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-24 opacity-0",
+      )}
+      style={{ bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))" }}
+    >
+      <a
+        href={WHATSAPP_HREF}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/15 bg-white/10 text-white transition-smooth hover:bg-white/15 active:scale-[0.98]"
+        aria-label="Napisz na WhatsApp"
+      >
+        <WhatsAppIcon className="h-5 w-5 text-brand-cyan" />
+      </a>
+      <a href={PHONE_HREF} className="btn-cta flex-1 py-3 text-sm">
+        <Phone className="h-4 w-4" />
+        Zadzwoń teraz
+      </a>
+    </div>
+  );
+}

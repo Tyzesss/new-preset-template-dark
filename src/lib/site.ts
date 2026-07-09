@@ -57,6 +57,15 @@ export const SITE_OG_IMAGE = preset.ogImage;
 export const GALLERY = preset.gallery;
 export const REVIEWS = preset.reviews;
 
+export const HERO_HEADLINE = preset.heroHeadline;
+export const HERO_BULLETS = preset.heroBullets;
+export const FOOTER_TAGLINE = preset.footerTagline;
+export const SERVICES_SECTION_SUBTITLE = preset.servicesSectionSubtitle;
+export const GALLERY_SECTION_SUBTITLE = preset.gallerySectionSubtitle;
+export const SERVICES = preset.services;
+export const FAQS = preset.faqs;
+export const SERVICE_OPTION_GROUPS = preset.serviceOptionGroups;
+
 export const SITE_DEFAULT_URL = preset.siteDefaultUrl;
 
 /** Nadpisz w .env: VITE_SITE_URL=https://twoja-domena.pl */

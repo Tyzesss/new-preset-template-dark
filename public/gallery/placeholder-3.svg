@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" fill="none">
+  <rect width="800" height="600" fill="oklch(0.14 0.04 252)"/>
+  <rect x="40" y="40" width="720" height="520" rx="16" stroke="oklch(1 0 0 / 0.12)" stroke-width="2" stroke-dasharray="12 8"/>
+  <text x="400" y="290" text-anchor="middle" fill="oklch(0.7 0.04 252)" font-family="system-ui, sans-serif" font-size="28" font-weight="600">Zdjcie realizacji 3</text>
+  <text x="400" y="330" text-anchor="middle" fill="oklch(0.5 0.04 252)" font-family="system-ui, sans-serif" font-size="16">PodmieD w public/gallery/</text>
+</svg>

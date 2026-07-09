@@ -15,7 +15,7 @@ function loadEnvSiteUrl() {
   } catch {
     // brak .env — użyj domyślnej domeny
   }
-  return process.env.VITE_SITE_URL ?? "https://supernowa-jg.pl";
+  return process.env.VITE_SITE_URL ?? "https://twoja-domena.pl";
 }
 
 const baseUrl = loadEnvSiteUrl().replace(/\/$/, "");

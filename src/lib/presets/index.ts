@@ -1,21 +1,15 @@
-import { jeleniaGoraPreset } from "./jelenia-gora";
-import { krakowPreset } from "./krakow";
+import { defaultPreset } from "./default";
 import type { SitePreset } from "./types";
-import { warszawaPreset } from "./warszawa";
-import { wroclawPreset } from "./wroclaw";
 
-export type PresetId = "warszawa" | "krakow" | "wroclaw" | "jelenia-gora";
+export type PresetId = "default";
 
 export const PRESETS: Record<PresetId, SitePreset> = {
-  warszawa: warszawaPreset,
-  krakow: krakowPreset,
-  wroclaw: wroclawPreset,
-  "jelenia-gora": jeleniaGoraPreset,
+  default: defaultPreset,
 };
 
 export const PRESET_IDS = Object.keys(PRESETS) as PresetId[];
 
-const DEFAULT_PRESET_ID: PresetId = "jelenia-gora";
+const DEFAULT_PRESET_ID: PresetId = "default";
 
 export function getActivePreset(): SitePreset {
   const raw = import.meta.env.VITE_CITY_PRESET as string | undefined;
@@ -25,4 +19,12 @@ export function getActivePreset(): SitePreset {
   return PRESETS[DEFAULT_PRESET_ID];
 }
 
-export type { GalleryItem, ReviewItem, SitePreset } from "./types";
+export type {
+  FaqItem,
+  FormOptionGroup,
+  GalleryItem,
+  ReviewItem,
+  ServiceIcon,
+  ServiceItem,
+  SitePreset,
+} from "./types";

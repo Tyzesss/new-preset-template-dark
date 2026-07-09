@@ -74,14 +74,14 @@
   --input: oklch(0.20 0.04 252);
   --ring: oklch(0.62 0.16 252);
 
-  /* Brand palette — Supernowa (#2d60a2 / #334960) */
+  /* Brand palette — dostosuj do klienta */
   --brand-deep: oklch(0.09 0.03 252);
   --brand-navy: oklch(0.16 0.05 252);
   --brand-teal: oklch(0.47 0.13 252);
   --brand-cyan: oklch(0.62 0.16 252);
   --brand-ice: oklch(0.18 0.04 252);
 
-  /* CTA — Supernowa blue */
+  /* CTA */
   --cta: oklch(0.50 0.14 252);
   --cta-hover: oklch(0.56 0.15 252);
   --cta-foreground: oklch(0.99 0 0);

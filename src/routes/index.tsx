@@ -62,7 +62,16 @@ import {
   GALLERY,
   GOOGLE_REVIEWS_URL,
   HERO_IMAGE,
+  HERO_HEADLINE,
+  HERO_BULLETS,
+  FOOTER_TAGLINE,
+  SERVICES_SECTION_SUBTITLE,
+  GALLERY_SECTION_SUBTITLE,
+  SERVICES,
+  FAQS,
+  SERVICE_OPTION_GROUPS,
 } from "@/lib/site";
+import type { ServiceIcon, ServiceItem } from "@/lib/presets";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -89,91 +98,21 @@ const NAV_LINKS = [
   { href: "#kontakt", label: "Kontakt" },
 ] as const;
 
-const services = [
-  {
-    icon: Wrench,
-    title: "Serwis i naprawy kotłów gazowych",
-    desc: "Diagnoza, naprawa i wymiana części. Autoryzowany serwis urządzeń grzewczych.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Przeglądy gwarancyjne i pogwarancyjne",
-    desc: "Czyszczenie, regulacja palnika i dokumentacja. Zgodnie z wymaganiami producenta.",
-  },
-  {
-    icon: CheckCircle2,
-    title: "Pierwsze uruchomienia",
-    desc: "Konfiguracja i testy po montażu. Przekazanie dokumentacji uruchomienia.",
-  },
-  {
-    icon: Zap,
-    title: "Serwis pomp ciepła",
-    desc: "Diagnostyka i naprawy w ramach gwarancji oraz po jej zakończeniu.",
-  },
-  {
-    icon: AlertTriangle,
-    title: "Naprawa awaryjna",
-    desc: "Szybka reakcja przy awarii pieca lub kotła. Termin dojazdu potwierdzamy telefonicznie.",
-  },
-  {
-    icon: Flame,
-    title: "Montaż kotłów i pomp ciepła",
-    desc: "Dobór i montaż urządzeń grzewczych. Wycena przed rozpoczęciem prac.",
-  },
-];
+const SERVICE_ICONS: Record<ServiceIcon, typeof Wrench> = {
+  wrench: Wrench,
+  "shield-check": ShieldCheck,
+  zap: Zap,
+  "alert-triangle": AlertTriangle,
+  "check-circle": CheckCircle2,
+  flame: Flame,
+};
 
-const SERVICE_OPTION_GROUPS = [
-  {
-    label: "Serwis i naprawa",
-    options: [
-      "Przegląd i konserwacja",
-      "Naprawa awaryjna pieca lub kotła",
-      "Serwis gwarancyjny / pogwarancyjny",
-    ],
-  },
-  {
-    label: "Pierwsze uruchomienie",
-    options: ["Pierwsze uruchomienie kotła", "Pierwsze uruchomienie pompy ciepła"],
-  },
-  {
-    label: "Inne",
-    options: ["Potrzebuję doradztwa"],
-  },
-  {
-    label: "Montaż (opcjonalnie)",
-    options: ["Montaż kotła gazowego", "Montaż pompy ciepła"],
-  },
-  {
-    label: "Klimatyzacja (opcjonalnie)",
-    options: ["Montaż klimatyzacji split", "Serwis klimatyzacji"],
-  },
-] as const;
+const services = SERVICES.map((s) => ({ ...s, icon: SERVICE_ICONS[s.icon] }));
 
 const gallery = GALLERY;
 const GALLERY_PREVIEW_COUNT = 3;
 
-const faqs = [
-  {
-    q: "Czy jesteście autoryzowanym serwisem?",
-    a: "Tak. Serwisujemy kotły i pompy ciepła marek Buderus, Bosch, Junkers, Termet, Broetje i Kaisai na terenie Jeleniej Góry i okolic.",
-  },
-  {
-    q: "Ile kosztuje przegląd kotła gazowego?",
-    a: "Od 350 zł brutto za przegląd z czyszczeniem i regulacją palnika. Dokładną kwotę potwierdzimy przed wizytą.",
-  },
-  {
-    q: "Ile kosztuje naprawa lub serwis awaryjny?",
-    a: "Zwykle od 300 zł brutto, w zależności od zakresu czynności (diagnostyka, naprawa, regulacja instalacji). Koszt ustalamy na miejscu po diagnozie — zanim przystąpimy do naprawy.",
-  },
-  {
-    q: "Jak szybko możecie pomóc przy awarii?",
-    a: "W pilnych przypadkach reagujemy jak najszybciej. Zadzwoń, a potwierdzimy możliwy termin dojazdu.",
-  },
-  {
-    q: "Czy dojeżdżacie do klienta?",
-    a: "Tak. Obsługujemy Jelenią Górę i okolice. Nie mamy punktu stacjonarnego, przyjeżdżamy na miejsce.",
-  },
-];
+const faqs = FAQS;
 
 
 function HeroGoogleRating({
@@ -261,7 +200,7 @@ function LeadForm() {
         <Label htmlFor="lead-phone" className={labelClass}>
           Telefon
         </Label>
-        <input required id="lead-phone" type="tel" name="phone" placeholder="np. 533 843 330" className={inputClass} />
+        <input required id="lead-phone" type="tel" name="phone" placeholder={`np. ${PHONE_DISPLAY}`} className={inputClass} />
       </div>
       <div className="grid gap-1.5">
         <Label htmlFor="lead-name" className={labelClass}>
@@ -314,7 +253,7 @@ function LeadForm() {
   );
 }
 
-function ServiceCard({ s, index }: { s: (typeof services)[number]; index: number }) {
+function ServiceCard({ s, index }: { s: ServiceItem & { icon: typeof Wrench }; index: number }) {
   const Icon = s.icon;
   const num = String(index + 1).padStart(2, "0");
   const { ref, className: revealClass } = useReveal<HTMLDivElement>();
@@ -570,7 +509,7 @@ function Index() {
         <div className="hero-services-bg" aria-hidden>
           <div
             className="hero-photo"
-            style={{ backgroundImage: `url(${HERO_IMAGE ?? "/gallery/buderus-gb172.webp"})` }}
+            style={{ backgroundImage: `url(${HERO_IMAGE ?? "/gallery/placeholder-1.svg"})` }}
           />
           <div className="hero-photo-scrim" />
         </div>
@@ -590,7 +529,7 @@ function Index() {
             </div>
 
             <h1 className="hero-enter hero-enter-delay-1 order-2 mt-3 text-[2.5rem] font-bold leading-[1.06] max-md:mx-auto md:order-1 md:mt-4 md:text-[3.25rem] lg:text-[3.5rem]">
-              Serwis i naprawa techniki grzewczej
+              {HERO_HEADLINE}
             </h1>
 
             <p className="hero-enter hero-enter-delay-2 order-3 mt-2 text-xl font-medium text-white/85 md:order-2 md:mt-2 md:text-2xl">
@@ -598,20 +537,15 @@ function Index() {
             </p>
 
             <ul className="hero-enter hero-enter-delay-4 order-4 mx-auto mt-4 hidden max-w-xl space-y-2.5 text-left text-base leading-snug text-white/85 md:mx-0 md:block md:text-lg">
-              <li className="flex items-start gap-2.5">
-                <span
-                  className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-cyan shadow-[0_0_8px] shadow-brand-cyan/60"
-                  aria-hidden
-                />
-                Przeglądy, naprawy i pierwsze uruchomienia kotłów oraz pomp ciepła.
-              </li>
-              <li className="flex items-start gap-2.5">
-                <span
-                  className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-cyan shadow-[0_0_8px] shadow-brand-cyan/60"
-                  aria-hidden
-                />
-                Serwis gwarancyjny i pogwarancyjny.
-              </li>
+              {HERO_BULLETS.map((bullet) => (
+                <li key={bullet} className="flex items-start gap-2.5">
+                  <span
+                    className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-cyan shadow-[0_0_8px] shadow-brand-cyan/60"
+                    aria-hidden
+                  />
+                  {bullet}
+                </li>
+              ))}
             </ul>
 
             <div className="hero-enter hero-enter-delay-5 order-5 mt-4 flex justify-center md:mt-6 md:justify-start">
@@ -634,7 +568,7 @@ function Index() {
           id="uslugi"
           eyebrow="Usługi"
           title="Nasze usługi"
-          subtitle="Przeglądy, naprawy awaryjne, uruchomienia i montaż urządzeń grzewczych."
+          subtitle={SERVICES_SECTION_SUBTITLE}
           glow={{ x: "22%", y: "58%", strength: 0.035 }}
         >
           <MobileCarousel dark items={services} renderItem={(s) => <ServiceCard s={s} index={services.indexOf(s)} />} />
@@ -669,7 +603,7 @@ function Index() {
         panel
         eyebrow="Portfolio"
         title="Nasze realizacje"
-        subtitle="Wybrane realizacje serwisowe i instalacje grzewcze w Twojej okolicy."
+        subtitle={GALLERY_SECTION_SUBTITLE}
         glow={{ x: "44%", y: "48%" }}
       >
         <GallerySection />
@@ -764,7 +698,7 @@ function Index() {
       {/* FOOTER */}
       <footer className="relative px-4 pt-10 pb-24 text-foreground md:pb-8">
         <div className="mx-auto max-w-6xl text-center text-sm text-muted-foreground">
-          <p className="font-bold text-foreground">{SITE_NAME} — Serwis kotłów i pomp ciepła</p>
+          <p className="font-bold text-foreground">{SITE_NAME} — {FOOTER_TAGLINE}</p>
           <p className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <a href={PHONE_HREF} className="inline-flex items-center gap-1.5 transition-smooth hover:text-foreground">
               <Phone className="h-3.5 w-3.5" /> {PHONE_DISPLAY}

@@ -124,7 +124,7 @@ Zachowaj **ciemny premium layout** — nie rób jasnego motywu.
 - Pobierz logo klienta → `public/logo.png` (lub `.svg`)
 - Ustaw `logoUrl` w presetcie, np. `"/logo.png"`
 - `SiteLogo` wyświetli `<img>` automatycznie; bez `logoUrl` pokaże tekst `siteName`
-- Favicon: podmień `public/favicon.svg` i dodaj `public/favicon.png` (linkowany w `__root.tsx`)
+- Favicon: podmień `public/favicon.svg` (używany też jako apple-touch-icon w `__root.tsx`)
 
 ### 4. Zdjęcia (hero + galeria)
 

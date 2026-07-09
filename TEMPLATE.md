@@ -111,7 +111,7 @@ logoUrl: "/logo.png",  // lub "/logo.svg"
 
 ### Favicon
 
-Zamień `public/favicon.svg` (opcjonalnie dodaj `favicon.png`).
+Zamień `public/favicon.svg` przy personalizacji klienta.
 
 ## Krok 5 — Kolory marki
 

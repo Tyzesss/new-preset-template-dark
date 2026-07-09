@@ -61,6 +61,10 @@ export type SitePreset = {
   regon: string;
   hours: string;
   logoUrl?: string;
+  /** Gdy false (domyślnie) — obok logo wyświetla się widoczny `siteName` (dla logotypów bez napisu). */
+  logoIncludesName?: boolean;
+  /** Ikona zakładki; domyślnie = logoUrl. Ustaw wycinek/kwadrat logo jako favicon. */
+  faviconUrl?: string;
   heroImage?: string;
   siteTitle: string;
   siteKeywords: string;

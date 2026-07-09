@@ -25,6 +25,8 @@ export const defaultPreset: SitePreset = {
   regon: "000000000",
   hours: "Pn - Pt: 8:00 - 17:00",
   logoUrl: "/logo.svg",
+  logoIncludesName: false,
+  faviconUrl: "/favicon.svg",
   heroImage: "/gallery/placeholder-1.svg",
   siteTitle: `Serwis kotłów ${siteCity} | ${siteName}`,
   siteKeywords:

@@ -39,6 +39,8 @@ export const MAPS_URL =
   preset.mapsUrl ?? `https://maps.google.com/?q=${encodeURIComponent(preset.mapsQuery)}`;
 
 export const LOGO_URL = preset.logoUrl;
+export const LOGO_INCLUDES_NAME = preset.logoIncludesName ?? false;
+export const FAVICON_URL = preset.faviconUrl ?? preset.logoUrl ?? "/favicon.svg";
 export const HERO_IMAGE = preset.heroImage;
 export const PARTNERS = preset.partners ?? [];
 

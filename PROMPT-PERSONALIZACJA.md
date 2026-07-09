@@ -12,6 +12,35 @@ Zrób rebrand mojego szablonu TanStack Start (`src/lib/presets/`) pod tę firmę
 
 ---
 
+## Obowiązkowe rutynowe czynności (każda personalizacja)
+
+Wykonaj **zawsze**, bez pytania — to nie jest opcjonalne:
+
+### 1. Favicon = logo lub jego wycinek
+
+- **Nigdy** nie zostawiaj generycznego `favicon.svg` szablonu.
+- Utwórz `public/favicon.png` (preferowane) lub `public/favicon.svg` z **logo klienta**:
+  - jeśli logo ma ikonę + napis → favicon = **sama ikona** (kwadratowy wycinek),
+  - jeśli logo jest proste → całe logo przeskalowane do kwadratu.
+- W presetcie ustaw `faviconUrl: "/favicon.png"` (lub `.svg`).
+- Gdy nie ustawisz `faviconUrl`, strona użyje `logoUrl` — ale **zawsze** przygotuj dedykowany kwadratowy favicon.
+
+### 2. Nazwa firmy obok logo (gdy logo bez napisu)
+
+- Sprawdź logo: czy zawiera **czytelny napis** z nazwą firmy?
+- **Logo tylko z ikoną / symbolem** → w presetcie: `logoIncludesName: false` (domyślnie). Header pokaże **logo + `siteName` obok** automatycznie (`SiteLogo`).
+- **Logo ze wbudowanym napisem** → `logoIncludesName: true` (tylko grafika, bez duplikatu tekstu).
+- Nie polegaj na `sr-only` — nazwa ma być **widoczna**, gdy logo jej nie ma.
+
+### 3. Linie timeline „Jak to działa” w kolorze marki
+
+- Po zmianie kolorystyki w `src/styles.css` **zweryfikuj wizualnie** sekcję „Jak to działa” (desktop + mobile).
+- Linie łączące kroki 1–2–3 **muszą** być w kolorze marki — używają `--brand-cyan` (zmienne `--timeline-line-*`).
+- Przy personalizacji **zawsze** aktualizuj `--brand-cyan`, `--brand-teal` i `--cta` razem — nie zostawiaj starych wartości z innego klienta.
+- Po zmianie kolorów: sprawdź pasek poziomy (desktop) i pionowe łączniki (mobile).
+
+---
+
 ## Architektura szablonu — co edytujesz, a czego nie
 
 **Jedyny plik z treścią klienta:** skopiuj `src/lib/presets/default.ts` → `src/lib/presets/[id-klienta].ts`, edytuj, zarejestruj w `src/lib/presets/index.ts`.
@@ -96,6 +125,9 @@ Personalizuj tam, gdzie lead **widzi markę**: kolory, logo, zdjęcia, kontakt, 
 | `siteDescription` / `siteKeywords` | Meta — niewidoczne w hero |
 | `footerTagline` | Krótko, np. „Serwis kotłów i pomp ciepła” |
 | `partners` | Marki klienta — puste `[]` jeśli brak |
+| `logoUrl` | Ścieżka do logo w `public/` |
+| `logoIncludesName` | `true` = logo ma napis (nie duplikuj `siteName`); `false` = tylko ikona (nazwa obok — domyślnie) |
+| `faviconUrl` | Kwadratowy favicon z logo; np. `"/favicon.png"` |
 
 3. Zarejestruj w `src/lib/presets/index.ts` i ustaw jako aktywny preset.
 
@@ -113,7 +145,7 @@ Edytuj `src/styles.css` — sekcja `:root`:
 | `--gradient-hero`, `--gradient-accent` | Tła hero i gradienty |
 | `--ambient-blue`, `--ambient-cyan` | Poświaty sekcji |
 
-**Pamiętaj o:** paskach łączących kroki 1–2–3 w „Jak to działa” (`.timeline-*` — używają `--brand-cyan`).
+**Timeline „Jak to działa”:** linie między krokami 1–2–3 używają `--brand-cyan` (`--timeline-line-*`). Po każdej zmianie palety **sprawdź wizualnie** tę sekcję — nie mogą zostać kolory poprzedniego klienta ani domyślne, jeśli nie pasują.
 
 Opcjonalnie zaktualizuj `theme-color` w `src/routes/__root.tsx` (meta, domyślnie `#1a2d45`).
 
@@ -123,8 +155,8 @@ Zachowaj **ciemny premium layout** — nie rób jasnego motywu.
 
 - Pobierz logo klienta → `public/logo.png` (lub `.svg`)
 - Ustaw `logoUrl` w presetcie, np. `"/logo.png"`
-- `SiteLogo` wyświetli `<img>` automatycznie; bez `logoUrl` pokaże tekst `siteName`
-- Favicon: podmień `public/favicon.svg` (używany też jako apple-touch-icon w `__root.tsx`)
+- **`logoIncludesName`:** `false` gdy logo to sama ikona (nazwa `siteName` pojawi się obok); `true` gdy logo zawiera napis firmy
+- **Favicon (obowiązkowe):** wytnij ikonę z logo → `public/favicon.png` → `faviconUrl: "/favicon.png"`. Nie zostawiaj domyślnego favicona szablonu.
 
 ### 4. Zdjęcia (hero + galeria)
 
@@ -199,8 +231,9 @@ npm run build
 
 - [ ] Hero: ton szablonu, nie kopia starej strony klienta
 - [ ] `heroHeadline` + `heroBullets` + `siteCity` — krótkie, konkretne
-- [ ] Kolory marki w `styles.css` (+ timeline „Jak to działa”)
-- [ ] Logo + favicon = marka klienta
+- [ ] Kolory marki w `styles.css` — w tym linie timeline „Jak to działa” (desktop + mobile)
+- [ ] Favicon = wycinek/kwadrat logo (`faviconUrl`), nie domyślny szablon
+- [ ] Logo: `logoIncludesName` poprawnie; przy samej ikonie — widoczny `siteName` obok
 - [ ] Hero i galeria = prawdziwe zdjęcia (nie placeholdery SVG)
 - [ ] Telefon, e-mail, NIP, REGON, godziny — poprawne
 - [ ] `mapsUrl` / `googleReviewsUrl` — działający link Maps

@@ -61,6 +61,8 @@ komponenty + strony         ← layout (nie edytuj)
 | `partners` | Marki w sekcji partnerów |
 | `reviews` | Opinie fallback (gdy brak Google API) |
 | `gallery` | Zdjęcia realizacji |
+| `logoIncludesName` | `true` = logo ma napis; `false` = pokaż `siteName` obok ikony |
+| `faviconUrl` | Favicon (zwykle wycinek logo), np. `"/favicon.png"` |
 
 ### Ikony usług
 
@@ -95,13 +97,19 @@ VITE_WEB3FORMS_ACCESS_KEY=klucz_z_web3forms
 
 ## Krok 4 — Assety
 
-### Logo
+### Logo i favicon
 
-Wgraj do `public/` i ustaw `logoUrl` w presetcie:
+Wgraj do `public/` i ustaw w presetcie:
 
 ```ts
-logoUrl: "/logo.png",  // lub "/logo.svg"
+logoUrl: "/logo.png",
+logoIncludesName: false,  // false = ikona bez napisu → siteName obok w headerze
+faviconUrl: "/favicon.png",  // kwadratowy wycinek logo — obowiązkowo przy personalizacji
 ```
+
+### Favicon
+
+Przy każdym kliencie: wygeneruj `public/favicon.png` z logo (ikona lub całe logo w kwadracie). Ustaw `faviconUrl` w presetcie.
 
 ### Galeria i hero
 
@@ -109,15 +117,11 @@ logoUrl: "/logo.png",  // lub "/logo.svg"
 2. Uruchom `node scripts/optimize-gallery.mjs` (konwersja do WebP)
 3. Zaktualizuj `gallery[]`, `heroImage`, `ogImage` w presetcie
 
-### Favicon
-
-Zamień `public/favicon.svg` przy personalizacji klienta.
-
 ## Krok 5 — Kolory marki
 
 W `src/styles.css` dostosuj:
 
-- `--brand-teal`, `--brand-cyan` — akcenty
+- `--brand-teal`, `--brand-cyan` — akcenty (linie timeline „Jak to działa” też z `--brand-cyan`)
 - `--cta`, `--cta-hover` — przyciski
 - `--primary`, `--accent` — ogólna paleta
 

@@ -15,10 +15,15 @@ import {
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_OG_IMAGE,
+  FAVICON_URL,
   absoluteUrl,
   siteBaseUrl,
   SITE_KEYWORDS,
 } from "@/lib/site";
+
+function faviconMimeType(url: string): string {
+  return url.endsWith(".svg") ? "image/svg+xml" : "image/png";
+}
 import { LOCAL_BUSINESS_JSON_LD } from "@/lib/schema";
 
 const ogImage = absoluteUrl(SITE_OG_IMAGE);
@@ -113,8 +118,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       meta,
       links: [
         { rel: "stylesheet", href: appCss },
-        { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
-        { rel: "apple-touch-icon", href: "/favicon.svg" },
+        { rel: "icon", href: FAVICON_URL, type: faviconMimeType(FAVICON_URL) },
+        { rel: "apple-touch-icon", href: FAVICON_URL },
         { rel: "canonical", href: canonicalUrl },
       ],
     };

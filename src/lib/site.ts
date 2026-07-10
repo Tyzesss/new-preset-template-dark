@@ -32,8 +32,19 @@ export const ADDRESS_CITY = preset.addressCity;
 export const ADDRESS_POSTAL = preset.addressPostal;
 export const SERVICE_AREA = preset.serviceArea ?? "";
 export const HAS_STREET_ADDRESS = Boolean(preset.addressStreet?.trim());
-export const CONTACT_LOCATION = SERVICE_AREA || ADDRESS;
-export const CONTACT_LOCATION_LABEL = SERVICE_AREA ? "Obszar działania" : "Adres";
+
+const physicalAddress =
+  preset.address?.trim() ||
+  [preset.addressStreet, preset.addressPostal, preset.addressCity]
+    .map((part) => part?.trim())
+    .filter(Boolean)
+    .join(", ");
+
+export const HAS_PHYSICAL_ADDRESS = Boolean(physicalAddress);
+export const PHYSICAL_ADDRESS = physicalAddress;
+/** Kontakt: adres firmy ma pierwszeństwo; bez adresu → obszar działania. */
+export const CONTACT_LOCATION = HAS_PHYSICAL_ADDRESS ? physicalAddress : SERVICE_AREA;
+export const CONTACT_LOCATION_LABEL = HAS_PHYSICAL_ADDRESS ? "Adres" : "Obszar działania";
 export const HOURS = preset.hours;
 export const MAPS_URL =
   preset.mapsUrl ?? `https://maps.google.com/?q=${encodeURIComponent(preset.mapsQuery)}`;

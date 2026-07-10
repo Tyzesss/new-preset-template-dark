@@ -71,6 +71,7 @@ export type SitePreset = {
   siteDescription?: string;
   ogImage: string;
   googleRating: number;
+  /** Łączna liczba opinii widoczna na profilu Google Maps — NIE długość tablicy reviews[]. */
   googleReviewCount: number;
   googlePlaceId?: string;
   googleReviewsUrl?: string;

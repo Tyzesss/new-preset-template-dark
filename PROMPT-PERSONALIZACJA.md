@@ -127,8 +127,8 @@ Personalizuj tam, gdzie lead **widzi markę**: kolory, logo, zdjęcia, kontakt, 
 | `email` | Prawdziwy e-mail |
 | `nip` / `regon` | Z wizytówki / strony / Maps |
 | `hours` | Godziny otwarcia |
-| `serviceArea` | Gdy brak adresu: „[Miasto] i okolice — dojazd do klienta” |
-| `address*` | Wypełnij tylko jeśli klient ma siedzibę; inaczej puste + `serviceArea` |
+| `serviceArea` | Gdy **brak adresu**: „[Miasto] i okolice — dojazd do klienta” (fallback w Kontakt) |
+| `address` / `addressStreet*` / `addressCity` / `addressPostal` | **Priorytet w sekcji Kontakt** — gdy wypełnione, karta pokazuje „Adres”; bez adresu → `serviceArea` jako „Obszar działania” |
 | `mapsUrl` / `googleReviewsUrl` | Link z Google Maps |
 | `mapsQuery` | Fraza do wyszukania firmy |
 | `siteDefaultUrl` | Domena klienta (lub obecna strona) |
@@ -211,10 +211,17 @@ W presetcie ustaw:
 
 | Pole | Źródło |
 |------|--------|
-| `googleRating` | Średnia z Maps (np. `4.8`) |
-| `googleReviewCount` | Liczba opinii (np. `11`) |
+| `googleRating` | Średnia ocena z Google Maps (np. `4.8`) |
+| `googleReviewCount` | **Łączna liczba opinii z profilu Maps** (np. profil pokazuje „32 opinie” → wpisz `32`) |
 | `googleReviewsUrl` | Link do profilu (= `mapsUrl` lub goo.gl) |
-| `reviews[]` | Min. 3–5 **prawdziwych** opinii z Maps |
+| `reviews[]` | Min. 3–5 **prawdziwych** opinii z Maps (same teksty do wyświetlenia) |
+
+**KRYTYCZNE — `googleReviewCount` vs `reviews[]`:**
+- `googleReviewCount` = **całkowita liczba opinii na Google Maps** (ta przy gwiazdkach na profilu).
+- `reviews[]` = tylko 3–5 skopiowanych recenzji do sekcji na stronie.
+- **NIGDY** nie ustawiaj `googleReviewCount` na długość `reviews[]` (np. 5 wpisów ≠ 5 opinii na Maps).
+- Przykład błędu: na Maps jest **32 opinie**, a w presetcie `googleReviewCount: 9` — **niedopuszczalne**.
+- Hero, sekcja „Opinie klientów” i JSON-LD pokazują `googleReviewCount` — musi zgadzać się z Maps co do liczby.
 
 **Zasady `reviews[]`:**
 - `name`: inicjały z Maps lub pomiń → „Użytkownik Google Maps”
@@ -251,8 +258,9 @@ npm run build
 - [ ] `mapsUrl` / `googleReviewsUrl` — działający link Maps
 - [ ] Usługi + ikony = rzeczywista oferta (4–6 kart)
 - [ ] FAQ i formularz dopasowane do oferty
-- [ ] `partners[]` — tylko marki, które klient naprawdę serwisuje
-- [ ] Ocena, liczba opinii i treści recenzji = profil Google Maps
+- [ ] **Kontakt:** jeśli firma ma adres → karta „Adres”; bez adresu → „Obszar działania”
+- [ ] **`googleReviewCount` = dokładna liczba z profilu Maps** (nie długość `reviews[]`)
+- [ ] Ocena Google i treści recenzji = profil Google Maps
 - [ ] `siteTitle` / `siteDescription` — SEO w meta, nie w H1
 - [ ] `npm run build` przechodzi
 - [ ] Zero placeholderów: „Twoje Miasto”, „600 000 000”, „LOGO”, fikcyjne opinie

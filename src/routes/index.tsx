@@ -55,7 +55,7 @@ import {
   EMAIL_HREF,
   CONTACT_LOCATION,
   CONTACT_LOCATION_LABEL,
-  HAS_STREET_ADDRESS,
+  HAS_PHYSICAL_ADDRESS,
   HOURS,
   MAPS_URL,
   NIP,
@@ -344,11 +344,11 @@ const contactCards = [
   ...(CONTACT_LOCATION
     ? [
         {
-          type: HAS_STREET_ADDRESS ? ("address" as const) : ("area" as const),
+          type: HAS_PHYSICAL_ADDRESS ? ("address" as const) : ("area" as const),
           icon: MapPin,
           title: CONTACT_LOCATION_LABEL,
           value: CONTACT_LOCATION,
-          href: HAS_STREET_ADDRESS ? MAPS_URL : (null as string | null),
+          href: HAS_PHYSICAL_ADDRESS ? MAPS_URL : (null as string | null),
         },
       ]
     : []),

@@ -9,10 +9,10 @@ import {
   COMPANY_LEGAL_NAME,
   NIP,
   REGON,
-  ADDRESS,
   PHONE_DISPLAY,
   SERVICE_AREA,
-  HAS_STREET_ADDRESS,
+  HAS_PHYSICAL_ADDRESS,
+  PHYSICAL_ADDRESS,
 } from "@/lib/site";
 
 export const Route = createFileRoute("/polityka-prywatnosci")({
@@ -58,9 +58,11 @@ function PolitykaPrywatnosci() {
             <p className="mt-2">
               Administratorem danych osobowych jest {COMPANY_LEGAL_NAME} (dalej: „Administrator”), prowadząca
               działalność pod marką {SITE_NAME}
-              {HAS_STREET_ADDRESS
-                ? `, z siedzibą: ${ADDRESS},`
-                : `, obsługująca klientów na terenie ${SERVICE_AREA},`}{" "}
+              {HAS_PHYSICAL_ADDRESS
+                ? `, z siedzibą: ${PHYSICAL_ADDRESS},`
+                : SERVICE_AREA
+                  ? `, obsługująca klientów na terenie ${SERVICE_AREA},`
+                  : ","}{" "}
               NIP: {NIP}, REGON: {REGON}. W sprawach
               związanych z ochroną danych można kontaktować się pod adresem e-mail:{" "}
               <a href={`mailto:${EMAIL}`} className="text-brand-cyan underline hover:text-foreground">

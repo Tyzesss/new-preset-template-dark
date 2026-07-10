@@ -33,8 +33,8 @@ komponenty + strony         ← layout (nie edytuj)
 | `phoneE164` | `+48123456789` | WhatsApp, tel: link |
 | `nip` / `regon` | | Footer + RODO |
 | `hours` | `Pn - Pt: 8:00 - 17:00` | |
-| `serviceArea` | `Kraków i okolice — dojazd` | Gdy brak adresu stacjonarnego |
-| `address*` | | Zostaw puste, jeśli tylko dojazd |
+| `serviceArea` | `Kraków i okolice — dojazd` | Gdy brak adresu — fallback w Kontakt |
+| `address*` | `ul. Przykładowa 1, 00-000 Kraków` | **Priorytet w Kontakt** — gdy wypełnione, karta „Adres” |
 
 ### SEO i linki
 
@@ -46,6 +46,7 @@ komponenty + strony         ← layout (nie edytuj)
 | `siteDescription` | Meta description |
 | `mapsUrl` | Link do profilu Google Maps |
 | `googleReviewsUrl` | Ten sam lub osobny link do opinii |
+| `googleRating` / `googleReviewCount` | Ocena i **łączna liczba opinii z Maps** (nie długość `reviews[]`) |
 | `googlePlaceId` | Opcjonalnie — żywe opinie z API |
 
 ### Treści strony

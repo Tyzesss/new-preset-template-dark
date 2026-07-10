@@ -154,6 +154,9 @@ function CTAButton({ className = "" }: { className?: string }) {
   );
 }
 
+const FORM_HEADLINE = "Nie możesz się skontaktować?";
+const FORM_SUBLINE = "Zostaw numer — oddzwonimy do Ciebie.";
+
 function LeadForm() {
   const [service, setService] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -554,9 +557,8 @@ function Index() {
           </div>
 
           <div className="hero-enter hero-enter-delay-7 panel-glass mt-5 w-full rounded-2xl p-5 text-center max-md:[&_form]:text-left md:mt-0 md:text-left">
-            <p className="text-sm font-semibold text-white md:hidden">Oddzwonimy do Ciebie</p>
-            <p className="hidden text-sm font-semibold text-white md:block">Oddzwonimy do Ciebie</p>
-            <p className="mt-1 hidden text-xs text-white/75 md:block">Zostaw numer — oddzwonimy z propozycją terminu.</p>
+            <p className="text-sm font-semibold text-white">{FORM_HEADLINE}</p>
+            <p className="mt-1 text-xs text-white/75">{FORM_SUBLINE}</p>
             <div className="mt-4">
               <LeadForm />
             </div>
@@ -652,8 +654,8 @@ function Index() {
               </Reveal>
 
               <Reveal delay={80} className="mt-6">
-                <p className="text-sm font-semibold text-white">Zgłoś serwis</p>
-                <p className="mt-1 text-xs text-white/75">Zostaw numer — oddzwonimy z propozycją terminu.</p>
+                <p className="text-sm font-semibold text-white">{FORM_HEADLINE}</p>
+                <p className="mt-1 text-xs text-white/75">{FORM_SUBLINE}</p>
                 <div className="mt-4 [&_form]:text-left">
                   <LeadForm />
                 </div>
@@ -677,8 +679,8 @@ function Index() {
 
               <div className="mx-auto mt-8 grid w-full md:grid-cols-[minmax(0,26rem)_minmax(0,24rem)] md:items-stretch md:justify-center md:gap-7 lg:mt-10 lg:gap-8">
                 <Reveal className="h-full text-left">
-                  <p className="text-sm font-semibold text-white">Zgłoś serwis</p>
-                  <p className="mt-1 text-xs text-white/75">Zostaw numer — oddzwonimy z propozycją terminu.</p>
+                  <p className="text-sm font-semibold text-white">{FORM_HEADLINE}</p>
+                  <p className="mt-1 text-xs text-white/75">{FORM_SUBLINE}</p>
                   <div className="mt-4 flex flex-1 flex-col">
                     <LeadForm />
                   </div>

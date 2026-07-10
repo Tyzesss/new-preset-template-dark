@@ -43,11 +43,12 @@ Wykonaj **zawsze**, bez pytania — to nie jest opcjonalne:
 
 - Po personalizacji **nie może zostać** domyślny niebieski glow z szablonu.
 - Przy zmianie palety **zawsze** aktualizuj razem: `--brand-teal`, `--brand-cyan`, `--cta` (oraz `--primary` / `--accent` jeśli dotykasz).
-- Przeswity (`.page-ambient-scatter`, `.section-glow`, cienie kart, hover CTA) **dziedziczą** po tych zmiennych — nie hardcoduj kolorów glow w CSS.
+- Przeswity (`.page-ambient-scatter`, `.section-glow`, cienie kart, **hover przycisków CTA i secondary**) **dziedziczą** po `--brand-teal`, `--brand-cyan`, `--cta` — nie hardcoduj kolorów glow w CSS.
+- **Glow przy hover na przyciskach** (`btn-cta`, `btn-secondary`, sticky bar „Zadzwoń”) **musi** być w kolorze marki — po zmianie palety najedź myszką i sprawdź, czy poświata nie jest nadal niebieska.
 - **Zweryfikuj wizualnie** po zmianie kolorów:
   - delikatne plamy światła w tle całej strony (scroll góra–dół),
   - glow za sekcjami (usługi, opinie, realizacje, kontakt),
-  - poświata przy hover na kartach i przyciskach CTA.
+  - poświata przy hover na kartach i **wszystkich przyciskach** (CTA „Zadzwoń”, formularz, sticky bar mobile).
 - Jeśli marka jest np. czerwona/zielona, a tło nadal „świeci na niebiesko” → źle zaktualizowano `--brand-teal` / `--brand-cyan`.
 
 ---
@@ -155,7 +156,7 @@ Edytuj `src/styles.css` — sekcja `:root`:
 | `--primary`, `--accent`, `--ring` | Ogólna paleta UI |
 | `--gradient-hero`, `--gradient-accent` | Tła hero i gradienty |
 
-**Przeswity (glow):** `.page-ambient-scatter`, `.section-glow`, `--shadow-glow`, `--shadow-cta` — automatycznie z `--brand-teal` / `--brand-cyan` / `--cta`. Wystarczy zmienić paletę marki; potem sprawdź wizualnie tło i sekcje.
+**Przeswity (glow):** `.page-ambient-scatter`, `.section-glow`, `--shadow-glow`, `--shadow-cta`, `--shadow-cta-hover` — automatycznie z `--brand-teal` / `--brand-cyan` / `--cta`. Wystarczy zmienić paletę marki; potem sprawdź tło, sekcje i **hover na przyciskach** (CTA, secondary, sticky bar).
 
 **Timeline „Jak to działa”:** linie między krokami 1–2–3 używają `--brand-cyan` (`--timeline-line-*`). Po każdej zmianie palety **sprawdź wizualnie** tę sekcję.
 
@@ -250,7 +251,7 @@ npm run build
 
 - [ ] Hero: ton szablonu, nie kopia starej strony klienta
 - [ ] `heroHeadline` + `heroBullets` + `siteCity` — krótkie, konkretne
-- [ ] Kolory marki w `styles.css` — glow tła, sekcje, timeline, hover CTA (bez niebieskiego z szablonu)
+- [ ] Kolory marki w `styles.css` — glow tła, sekcje, timeline, **hover przycisków** (bez niebieskiego z szablonu)
 - [ ] Favicon = wycinek/kwadrat logo (`faviconUrl`), nie domyślny szablon
 - [ ] Logo: `logoIncludesName` poprawnie; przy samej ikonie — widoczny `siteName` obok
 - [ ] Hero i galeria = prawdziwe zdjęcia (nie placeholdery SVG)

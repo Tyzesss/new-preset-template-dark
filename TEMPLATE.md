@@ -125,7 +125,7 @@ W `src/styles.css` dostosuj:
 - `--brand-teal`, `--brand-cyan` — akcenty, glow tła (`.page-ambient-scatter`, `.section-glow`), timeline, cienie kart
 - `--cta`, `--cta-hover` — przyciski (hover glow też z `--cta` / `--brand-cyan`)
 
-Po zmianie palety przewiń stronę i sprawdź, czy przeswity w tle nie zostały w starym kolorze.
+Po zmianie palety przewiń stronę i **najedź na przyciski** — poświata nie może zostać w starym kolorze.
 - `--primary`, `--accent` — ogólna paleta
 
 ## Krok 6 — Formularz (Web3Forms)

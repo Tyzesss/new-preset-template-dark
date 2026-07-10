@@ -39,6 +39,17 @@ Wykonaj **zawsze**, bez pytania — to nie jest opcjonalne:
 - Przy personalizacji **zawsze** aktualizuj `--brand-cyan`, `--brand-teal` i `--cta` razem — nie zostawiaj starych wartości z innego klienta.
 - Po zmianie kolorów: sprawdź pasek poziomy (desktop) i pionowe łączniki (mobile).
 
+### 4. Przeswity / glow w tle strony w kolorze marki
+
+- Po personalizacji **nie może zostać** domyślny niebieski glow z szablonu.
+- Przy zmianie palety **zawsze** aktualizuj razem: `--brand-teal`, `--brand-cyan`, `--cta` (oraz `--primary` / `--accent` jeśli dotykasz).
+- Przeswity (`.page-ambient-scatter`, `.section-glow`, cienie kart, hover CTA) **dziedziczą** po tych zmiennych — nie hardcoduj kolorów glow w CSS.
+- **Zweryfikuj wizualnie** po zmianie kolorów:
+  - delikatne plamy światła w tle całej strony (scroll góra–dół),
+  - glow za sekcjami (usługi, opinie, realizacje, kontakt),
+  - poświata przy hover na kartach i przyciskach CTA.
+- Jeśli marka jest np. czerwona/zielona, a tło nadal „świeci na niebiesko” → źle zaktualizowano `--brand-teal` / `--brand-cyan`.
+
 ---
 
 ## Architektura szablonu — co edytujesz, a czego nie
@@ -143,9 +154,10 @@ Edytuj `src/styles.css` — sekcja `:root`:
 | `--cta`, `--cta-hover` | Przyciski CTA |
 | `--primary`, `--accent`, `--ring` | Ogólna paleta UI |
 | `--gradient-hero`, `--gradient-accent` | Tła hero i gradienty |
-| `--ambient-blue`, `--ambient-cyan` | Poświaty sekcji |
 
-**Timeline „Jak to działa”:** linie między krokami 1–2–3 używają `--brand-cyan` (`--timeline-line-*`). Po każdej zmianie palety **sprawdź wizualnie** tę sekcję — nie mogą zostać kolory poprzedniego klienta ani domyślne, jeśli nie pasują.
+**Przeswity (glow):** `.page-ambient-scatter`, `.section-glow`, `--shadow-glow`, `--shadow-cta` — automatycznie z `--brand-teal` / `--brand-cyan` / `--cta`. Wystarczy zmienić paletę marki; potem sprawdź wizualnie tło i sekcje.
+
+**Timeline „Jak to działa”:** linie między krokami 1–2–3 używają `--brand-cyan` (`--timeline-line-*`). Po każdej zmianie palety **sprawdź wizualnie** tę sekcję.
 
 Opcjonalnie zaktualizuj `theme-color` w `src/routes/__root.tsx` (meta, domyślnie `#1a2d45`).
 
@@ -231,7 +243,7 @@ npm run build
 
 - [ ] Hero: ton szablonu, nie kopia starej strony klienta
 - [ ] `heroHeadline` + `heroBullets` + `siteCity` — krótkie, konkretne
-- [ ] Kolory marki w `styles.css` — w tym linie timeline „Jak to działa” (desktop + mobile)
+- [ ] Kolory marki w `styles.css` — glow tła, sekcje, timeline, hover CTA (bez niebieskiego z szablonu)
 - [ ] Favicon = wycinek/kwadrat logo (`faviconUrl`), nie domyślny szablon
 - [ ] Logo: `logoIncludesName` poprawnie; przy samej ikonie — widoczny `siteName` obok
 - [ ] Hero i galeria = prawdziwe zdjęcia (nie placeholdery SVG)

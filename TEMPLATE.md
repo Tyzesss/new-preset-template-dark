@@ -121,8 +121,10 @@ Przy każdym kliencie: wygeneruj `public/favicon.png` z logo (ikona lub całe lo
 
 W `src/styles.css` dostosuj:
 
-- `--brand-teal`, `--brand-cyan` — akcenty (linie timeline „Jak to działa” też z `--brand-cyan`)
-- `--cta`, `--cta-hover` — przyciski
+- `--brand-teal`, `--brand-cyan` — akcenty, glow tła (`.page-ambient-scatter`, `.section-glow`), timeline, cienie kart
+- `--cta`, `--cta-hover` — przyciski (hover glow też z `--cta` / `--brand-cyan`)
+
+Po zmianie palety przewiń stronę i sprawdź, czy przeswity w tle nie zostały w starym kolorze.
 - `--primary`, `--accent` — ogólna paleta
 
 ## Krok 6 — Formularz (Web3Forms)

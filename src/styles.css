@@ -94,10 +94,10 @@
   );
   --gradient-cool: linear-gradient(180deg, oklch(0.13 0.035 252) 0%, oklch(0.11 0.032 252) 100%);
   --gradient-accent: linear-gradient(135deg, var(--cta), var(--brand-cyan));
-  --gradient-radial: radial-gradient(circle at 30% 20%, oklch(0.50 0.14 252 / 0.18), transparent 60%);
+  --gradient-radial: radial-gradient(circle at 30% 20%, color-mix(in oklch, var(--cta) 18%, transparent), transparent 60%);
 
-  --ambient-blue: oklch(0.50 0.14 252);
-  --ambient-cyan: oklch(0.62 0.16 252);
+  --ambient-blue: var(--brand-teal);
+  --ambient-cyan: var(--brand-cyan);
 
   /* Timeline „Jak to działa” — dziedziczy po --brand-cyan przy zmianie kolorystyki */
   --timeline-line-soft: color-mix(in oklch, var(--brand-cyan) 15%, transparent);
@@ -109,8 +109,9 @@
 
   --shadow-cool: 0 20px 50px -20px oklch(0 0 0 / 0.55);
   --shadow-card: 0 4px 24px -6px oklch(0 0 0 / 0.35);
-  --shadow-glow: 0 8px 32px -8px oklch(0.50 0.14 252 / 0.4);
-  --shadow-cta: 0 0 14px oklch(0.50 0.14 252 / 0.22), 0 2px 8px oklch(0.50 0.14 252 / 0.14);
+  --shadow-glow: 0 8px 32px -8px color-mix(in oklch, var(--brand-teal) 40%, transparent);
+  --shadow-cta: 0 0 14px color-mix(in oklch, var(--cta) 22%, transparent),
+    0 2px 8px color-mix(in oklch, var(--cta) 14%, transparent);
 
   --transition-smooth: all 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -297,7 +298,7 @@
     background-color: var(--brand-teal);
   }
   .hover\:bg-brand-teal\/90:hover {
-    background-color: oklch(0.48 0.16 240 / 0.9);
+    background-color: color-mix(in oklch, var(--brand-teal) 90%, transparent);
   }
   .section-eyebrow {
     font-size: 0.875rem;
@@ -323,8 +324,8 @@
   .btn-cta:hover {
     background-color: var(--cta-hover);
     box-shadow:
-      0 0 18px oklch(0.78 0.19 228 / 0.28),
-      0 2px 10px oklch(0.78 0.19 228 / 0.16);
+      0 0 18px color-mix(in oklch, var(--brand-cyan) 28%, transparent),
+      0 2px 10px color-mix(in oklch, var(--cta) 16%, transparent);
   }
 
   .btn-cta:active {
@@ -367,7 +368,7 @@
   }
 
   .btn-secondary:hover {
-    border-color: oklch(0.78 0.17 215 / 0.5);
+    border-color: color-mix(in oklch, var(--brand-cyan) 50%, transparent);
     background: oklch(1 0 0 / 0.12);
   }
 
@@ -389,11 +390,11 @@
     z-index: 0;
     overflow: hidden;
     background:
-      radial-gradient(ellipse 42% 34% at 14% 8%, oklch(0.50 0.14 252 / 0.07), transparent 68%),
-      radial-gradient(ellipse 36% 28% at 88% 18%, oklch(0.62 0.16 252 / 0.05), transparent 65%),
-      radial-gradient(ellipse 48% 38% at 72% 58%, oklch(0.50 0.14 252 / 0.045), transparent 70%),
-      radial-gradient(ellipse 38% 30% at 8% 72%, oklch(0.62 0.16 252 / 0.04), transparent 68%),
-      radial-gradient(ellipse 44% 32% at 52% 92%, oklch(0.50 0.14 252 / 0.055), transparent 66%);
+      radial-gradient(ellipse 42% 34% at 14% 8%, color-mix(in oklch, var(--brand-teal) 7%, transparent), transparent 68%),
+      radial-gradient(ellipse 36% 28% at 88% 18%, color-mix(in oklch, var(--brand-cyan) 5%, transparent), transparent 65%),
+      radial-gradient(ellipse 48% 38% at 72% 58%, color-mix(in oklch, var(--brand-teal) 4.5%, transparent), transparent 70%),
+      radial-gradient(ellipse 38% 30% at 8% 72%, color-mix(in oklch, var(--brand-cyan) 4%, transparent), transparent 68%),
+      radial-gradient(ellipse 44% 32% at 52% 92%, color-mix(in oklch, var(--brand-teal) 5.5%, transparent), transparent 66%);
   }
 
   .page-content {
@@ -407,7 +408,7 @@
     inset: 0;
     background: radial-gradient(
       ellipse 38% 32% at var(--glow-x, 50%) var(--glow-y, 42%),
-      oklch(0.50 0.14 252 / var(--glow-strength, 0.065)),
+      oklch(from var(--brand-teal) l c h / var(--glow-strength, 0.065)),
       transparent 70%
     );
   }
@@ -415,7 +416,7 @@
   .section-glow--cyan {
     background: radial-gradient(
       ellipse 38% 32% at var(--glow-x, 50%) var(--glow-y, 42%),
-      oklch(0.62 0.16 252 / var(--glow-strength, 0.055)),
+      oklch(from var(--brand-cyan) l c h / var(--glow-strength, 0.055)),
       transparent 70%
     );
   }

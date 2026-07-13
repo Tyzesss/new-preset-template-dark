@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { Calendar, Phone, Wrench } from "lucide-react";
+import { Calendar, ClipboardCheck, Phone } from "lucide-react";
 
 import { Reveal } from "@/components/Reveal";
 import { useReveal } from "@/hooks/use-reveal";
@@ -10,22 +10,22 @@ const STEPS = [
     step: 1,
     icon: Phone,
     title: "Zgłoszenie",
-    desc: "Zadzwoń, napisz na WhatsApp lub zostaw numer w formularzu — oddzwonimy z propozycją terminu.",
-    descShort: "Telefon, WhatsApp lub formularz — oddzwonimy z terminem.",
+    desc: "Zadzwoń, napisz na WhatsApp lub zostaw numer w formularzu. Oddzwonimy z propozycją terminu.",
+    descShort: "Telefon, WhatsApp lub formularz. Oddzwonimy z terminem.",
   },
   {
     step: 2,
     icon: Calendar,
     title: "Ustalenie terminu",
-    desc: "Doprecyzujemy usterkę i ustalimy dogodny termin wizyty serwisowej.",
-    descShort: "Doprecyzujemy usterkę i ustalimy termin wizyty.",
+    desc: "Doprecyzujemy zakres prac (montaż, serwis, wycena) i ustalimy dogodny termin wizyty.",
+    descShort: "Ustalimy zakres prac i termin wizyty.",
   },
   {
     step: 3,
-    icon: Wrench,
-    title: "Wizyta serwisowa",
-    desc: "Dojazd do klienta, diagnoza na miejscu i naprawa lub przegląd — koszt ustalamy po diagnozie, przed rozpoczęciem naprawy.",
-    descShort: "Dojazd, diagnoza i naprawa — koszt po diagnozie, przed naprawą.",
+    icon: ClipboardCheck,
+    title: "Realizacja u klienta",
+    desc: "Dojazd na miejsce: montaż, przegląd lub naprawa. Koszt i zakres potwierdzamy przed rozpoczęciem prac.",
+    descShort: "Montaż lub serwis na miejscu. Wycena przed startem prac.",
   },
 ] as const;
 
@@ -124,7 +124,7 @@ export function HowItWorks() {
             <p className="section-eyebrow">Proces</p>
             <h2 className="mt-1.5 text-xl font-bold text-white md:mt-2 md:text-3xl">Jak to działa?</h2>
             <p className="mx-auto mt-1.5 max-w-xl text-xs text-white/75 md:mt-2 md:text-base">
-              Od zgłoszenia do sprawnego kotła lub pompy ciepła.
+              Od zgłoszenia do gotowej realizacji: montaż, serwis lub przegląd.
             </p>
           </Reveal>
 

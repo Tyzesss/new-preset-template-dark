@@ -6,6 +6,7 @@ import {
   GOOGLE_REVIEWS_URL,
   HAS_STREET_ADDRESS,
   PHONE_E164,
+  SERVICES,
   SITE_CITY,
   SITE_DESCRIPTION,
   SITE_NAME,
@@ -64,13 +65,7 @@ export function localBusinessJsonLd() {
       worstRating: 1,
     },
     priceRange: "$$",
-    knowsAbout: [
-      "Serwis kotłów gazowych",
-      "Serwis pomp ciepła",
-      "Pierwsze uruchomienie kotłów",
-      "Przeglądy gwarancyjne urządzeń grzewczych",
-      SITE_CITY,
-    ],
+    knowsAbout: [...SERVICES.map((service) => service.title), SITE_CITY],
   };
 }
 

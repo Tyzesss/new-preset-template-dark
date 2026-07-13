@@ -64,7 +64,7 @@ export const SITE_TITLE = preset.siteTitle;
 export const SITE_KEYWORDS = preset.siteKeywords;
 export const SITE_DESCRIPTION =
   preset.siteDescription ??
-  `Serwis kotłów i pomp ciepła ${CITY_LOCATIVE} i okolicach. Naprawy, przeglądy, pierwsze uruchomienia. Zadzwoń: ${PHONE_DISPLAY}.`;
+  `Montaż i serwis klimatyzacji, pomp ciepła i instalacji HVAC ${CITY_LOCATIVE} i okolicach. Dojazd do klienta. Zadzwoń: ${PHONE_DISPLAY}.`;
 export const SITE_OG_IMAGE = preset.ogImage;
 
 export const GALLERY = preset.gallery;

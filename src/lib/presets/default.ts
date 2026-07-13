@@ -2,13 +2,13 @@ import type { SitePreset } from "./types";
 
 const siteCity = "Twoje Miasto i okolice";
 const cityLocative = "w Twoim Mieście";
-const siteName = "Serwis Grzewczy";
+const siteName = "Instalacje HVAC";
 
 export const defaultPreset: SitePreset = {
   id: "default",
   label: "Szablon domyślny",
   siteName,
-  companyLegalName: "Serwis Grzewczy Jan Kowalski",
+  companyLegalName: "Instalacje HVAC Jan Kowalski",
   siteCity,
   cityLocative,
   siteDefaultUrl: "https://twoja-domena.pl",
@@ -19,8 +19,8 @@ export const defaultPreset: SitePreset = {
   addressStreet: "",
   addressCity: "Twoje Miasto",
   addressPostal: "",
-  serviceArea: "Twoje Miasto i okolice — dojazd do klienta",
-  mapsQuery: "Serwis Grzewczy Twoje Miasto",
+  serviceArea: "Twoje Miasto i okolice, dojazd do klienta",
+  mapsQuery: "Instalacje HVAC Twoje Miasto",
   nip: "000-000-00-00",
   regon: "000000000",
   hours: "Pn - Pt: 8:00 - 17:00",
@@ -28,39 +28,39 @@ export const defaultPreset: SitePreset = {
   logoIncludesName: false,
   faviconUrl: "/favicon.svg",
   heroImage: "/gallery/placeholder-1.svg",
-  siteTitle: `Serwis kotłów ${siteCity} | ${siteName}`,
+  siteTitle: `Klimatyzacja i HVAC ${siteCity} | ${siteName}`,
   siteKeywords:
-    "serwis kotłów, serwis pomp ciepła, naprawa kotła gazowego, przegląd kotła, pierwsze uruchomienie, serwis gwarancyjny",
-  siteDescription: `Serwis gwarancyjny i pogwarancyjny kotłów gazowych oraz pomp ciepła ${cityLocative} i okolicach. Naprawy, przeglądy, pierwsze uruchomienia — dojazd do klienta. Zadzwoń: 600 000 000.`,
+    "klimatyzacja, montaż klimatyzacji, serwis HVAC, pompy ciepła, wentylacja, rekuperacja, serwis kotłów, naprawa awaryjna",
+  siteDescription: `Montaż i serwis klimatyzacji, pomp ciepła, wentylacji oraz urządzeń grzewczych ${cityLocative} i okolicach. Dojazd do klienta. Zadzwoń: 600 000 000.`,
   ogImage: "/gallery/placeholder-1.svg",
   googleRating: 4.9,
   googleReviewCount: 24,
-  partners: ["Buderus", "Bosch", "Junkers", "Termet", "Broetje", "Kaisai"],
+  partners: ["Daikin", "Mitsubishi", "Gree", "Bosch", "Vaillant", "Samsung"],
   gallery: [
     {
       image: "/gallery/placeholder-1.svg",
-      alt: "Przegląd i serwis kotła gazowego — realizacja serwisowa",
-      caption: "Przegląd serwisowy",
+      alt: "Montaż klimatyzacji split, realizacja instalacyjna",
+      caption: "Montaż klimatyzacji",
     },
     {
       image: "/gallery/placeholder-2.svg",
-      alt: "Serwis kaskady kotłów — konserwacja instalacji",
-      caption: "Kaskada · konserwacja",
+      alt: "Serwis pompy ciepła, diagnostyka i konserwacja",
+      caption: "Serwis pompy ciepła",
     },
     {
       image: "/gallery/placeholder-3.svg",
-      alt: "Konserwacja kotła gazowego — serwis urządzenia",
-      caption: "Konserwacja urządzenia",
+      alt: "Instalacja rekuperacji, wentylacja mechaniczna",
+      caption: "Rekuperacja",
     },
     {
       image: "/gallery/placeholder-4.svg",
-      alt: "Serwis kotła kondensacyjnego — przegląd i regulacja",
-      caption: "Przegląd i regulacja",
+      alt: "Przegląd i serwis kotła gazowego, konserwacja",
+      caption: "Serwis ogrzewania",
     },
     {
       image: "/gallery/placeholder-5.svg",
-      alt: "Serwis pompy ciepła — diagnostyka i naprawa",
-      caption: "Serwis pompy ciepła",
+      alt: "Montaż klimatyzacji w budynku komercyjnym",
+      caption: "Klimatyzacja komercyjna",
     },
   ],
   reviews: [
@@ -87,7 +87,7 @@ export const defaultPreset: SitePreset = {
     },
     {
       name: "Tomasz L.",
-      text: "Świetny serwis — po roku zrobili przegląd, wszystko jak nowe.",
+      text: "Świetny serwis. Po roku zrobili przegląd, wszystko jak nowe.",
       source: "google",
       rating: 5,
       relativeTime: "5 mies. temu",
@@ -100,58 +100,60 @@ export const defaultPreset: SitePreset = {
       relativeTime: "6 mies. temu",
     },
   ],
-  heroHeadline: "Serwis i naprawa techniki grzewczej",
+  heroHeadline: "Montaż i serwis instalacji HVAC",
   heroBullets: [
-    "Przeglądy, naprawy i pierwsze uruchomienia kotłów oraz pomp ciepła.",
-    "Serwis gwarancyjny i pogwarancyjny.",
+    "Klimatyzacja, pompy ciepła, wentylacja i ogrzewanie. Od montażu po serwis.",
+    "Obsługa gwarancyjna i pogwarancyjna z dojazdem do klienta.",
   ],
-  footerTagline: "Serwis kotłów i pomp ciepła",
-  servicesSectionSubtitle: "Przeglądy, naprawy awaryjne, uruchomienia i montaż urządzeń grzewczych.",
-  gallerySectionSubtitle: "Wybrane realizacje serwisowe i instalacje grzewcze w Twojej okolicy.",
+  footerTagline: "Klimatyzacja, pompy ciepła i HVAC",
+  servicesSectionSubtitle:
+    "Montaż, serwis i przeglądy klimatyzacji, pomp ciepła, wentylacji oraz urządzeń grzewczych.",
+  gallerySectionSubtitle: "Wybrane realizacje montażowe i serwisowe w Twojej okolicy.",
   services: [
     {
-      icon: "wrench",
-      title: "Serwis i naprawy kotłów gazowych",
-      desc: "Diagnoza, naprawa i wymiana części. Autoryzowany serwis urządzeń grzewczych.",
-    },
-    {
-      icon: "shield-check",
-      title: "Przeglądy gwarancyjne i pogwarancyjne",
-      desc: "Czyszczenie, regulacja palnika i dokumentacja. Zgodnie z wymaganiami producenta.",
-    },
-    {
       icon: "check-circle",
-      title: "Pierwsze uruchomienia",
-      desc: "Konfiguracja i testy po montażu. Przekazanie dokumentacji uruchomienia.",
+      title: "Montaż klimatyzacji",
+      desc: "Dobór mocy, montaż split i multi-split. Uruchomienie i przekazanie dokumentacji.",
+    },
+    {
+      icon: "wrench",
+      title: "Serwis klimatyzacji",
+      desc: "Czyszczenie, odgrzybianie, uzupełnianie czynnika i naprawa usterek.",
     },
     {
       icon: "zap",
-      title: "Serwis pomp ciepła",
-      desc: "Diagnostyka i naprawy w ramach gwarancji oraz po jej zakończeniu.",
+      title: "Montaż i serwis pomp ciepła",
+      desc: "Instalacja, pierwsze uruchomienie, diagnostyka i naprawy gwarancyjne oraz pogwarancyjne.",
     },
     {
-      icon: "alert-triangle",
-      title: "Naprawa awaryjna",
-      desc: "Szybka reakcja przy awarii pieca lub kotła. Termin dojazdu potwierdzamy telefonicznie.",
+      icon: "shield-check",
+      title: "Wentylacja i rekuperacja",
+      desc: "Montaż i serwis instalacji wentylacyjnych. Regulacja i konserwacja rekuperatorów.",
     },
     {
       icon: "flame",
-      title: "Montaż kotłów i pomp ciepła",
-      desc: "Dobór i montaż urządzeń grzewczych. Wycena przed rozpoczęciem prac.",
+      title: "Serwis kotłów i ogrzewania",
+      desc: "Przeglądy, naprawy i pierwsze uruchomienia kotłów gazowych i urządzeń grzewczych.",
+    },
+    {
+      icon: "alert-triangle",
+      title: "Naprawa awaryjna HVAC",
+      desc: "Szybka reakcja przy awarii klimatyzacji, pompy lub ogrzewania. Termin potwierdzamy telefonicznie.",
     },
   ],
+  // Przykład pod mix HVAC — przy kliencie przepisz FAQ pod jego profil (klima / pompy / kotły / wentylacja).
   faqs: [
     {
-      q: "Czy jesteście autoryzowanym serwisem?",
-      a: `Tak. Serwisujemy kotły i pompy ciepła wiodących marek na terenie ${siteCity.toLowerCase()}.`,
+      q: "Czy montujecie i serwisujecie klimatyzację?",
+      a: `Tak. Montaż, serwis i przeglądy klimatyzacji na terenie ${siteCity.toLowerCase()}.`,
     },
     {
-      q: "Ile kosztuje przegląd kotła gazowego?",
-      a: "Koszt zależy od zakresu czynności. Dokładną kwotę potwierdzimy przed wizytą.",
+      q: "Ile kosztuje montaż klimatyzacji?",
+      a: "Koszt zależy od mocy urządzenia i zakresu prac. Dokładną wycenę przedstawimy po oględzinach lub krótkiej rozmowie.",
     },
     {
-      q: "Ile kosztuje naprawa lub serwis awaryjny?",
-      a: "Cena ustalana jest po diagnozie na miejscu — zanim przystąpimy do naprawy, przedstawimy wycenę.",
+      q: "Czy serwisujecie pompy ciepła i kotły?",
+      a: `Tak. Obsługujemy pompy ciepła, wentylację oraz urządzenia grzewcze ${cityLocative} i okolicach.`,
     },
     {
       q: "Jak szybko możecie pomóc przy awarii?",
@@ -159,33 +161,29 @@ export const defaultPreset: SitePreset = {
     },
     {
       q: "Czy dojeżdżacie do klienta?",
-      a: `Tak. Obsługujemy ${siteCity.toLowerCase()}. Przyjeżdżamy na miejsce — bez punktu stacjonarnego.`,
+      a: `Tak. Obsługujemy ${siteCity.toLowerCase()}. Przyjeżdżamy na miejsce, bez punktu stacjonarnego.`,
     },
   ],
   serviceOptionGroups: [
     {
-      label: "Serwis i naprawa",
+      label: "Klimatyzacja",
+      options: ["Montaż klimatyzacji split", "Serwis i przegląd klimatyzacji", "Naprawa awaryjna klimatyzacji"],
+    },
+    {
+      label: "Pompy ciepła",
       options: [
-        "Przegląd i konserwacja",
-        "Naprawa awaryjna pieca lub kotła",
+        "Montaż pompy ciepła",
+        "Pierwsze uruchomienie pompy ciepła",
         "Serwis gwarancyjny / pogwarancyjny",
       ],
     },
     {
-      label: "Pierwsze uruchomienie",
-      options: ["Pierwsze uruchomienie kotła", "Pierwsze uruchomienie pompy ciepła"],
+      label: "Wentylacja i ogrzewanie",
+      options: ["Montaż rekuperacji", "Serwis kotła gazowego", "Przegląd i konserwacja ogrzewania"],
     },
     {
       label: "Inne",
-      options: ["Potrzebuję doradztwa"],
-    },
-    {
-      label: "Montaż (opcjonalnie)",
-      options: ["Montaż kotła gazowego", "Montaż pompy ciepła"],
-    },
-    {
-      label: "Klimatyzacja (opcjonalnie)",
-      options: ["Montaż klimatyzacji split", "Serwis klimatyzacji"],
+      options: ["Potrzebuję doradztwa", "Naprawa awaryjna HVAC"],
     },
   ],
 };

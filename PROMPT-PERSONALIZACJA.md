@@ -8,7 +8,7 @@ Przeanalizuj treść, strukturę, kolorystykę i zasoby z:
 - **Strona klienta:** [URL STRONY KLIENTA]
 - **Google Maps:** [URL MAPY]
 
-Zrób rebrand mojego szablonu TanStack Start (`src/lib/presets/`) pod tę firmę. Strona ma wyglądać jak zaprojektowana dla nich (kolory, logo, zdjęcia, dane), ale z zachowaniem układu UX i premium tonu szablonu.
+Zrób rebrand mojego **szablonu graficznego HVAC** (TanStack Start, `src/lib/presets/`) pod tę firmę. Szablon to **szata wizualna** (layout, UX, premium dark) — **nie** gotowy copy klienta. Strona ma wyglądać jak zaprojektowana dla nich (kolory, logo, zdjęcia, dane), z zachowaniem układu szablonu.
 
 ---
 
@@ -51,6 +51,29 @@ Wykonaj **zawsze**, bez pytania — to nie jest opcjonalne:
   - poświata przy hover na kartach i **wszystkich przyciskach** (CTA „Zadzwoń”, formularz, sticky bar mobile).
 - Jeśli marka jest np. czerwona/zielona, a tło nadal „świeci na niebiesko” → źle zaktualizowano `--brand-teal` / `--brand-cyan`.
 
+### 5. Oferta zgodna z priorytetami firmy (H1, bullety, usługi)
+
+**To jest najważniejsza treściowa personalizacja** — obok szaty graficznej.
+
+Przed pisaniem presetu przeanalizuj stronę klienta i Maps: **co sprzedaje w pierwszej kolejności?** (klimatyzacja, pompy ciepła, kotły, wentylacja, serwis awaryjny, montaż…)
+
+**Na pewno dopasuj do priorytetów firmy:**
+
+| Pole presetu | Zasada |
+|--------------|--------|
+| `heroHeadline` (H1) | Główna usługa firmy, 1 krótka linia. Np. firma od klimy → „Montaż i serwis klimatyzacji”; od kotłów → „Serwis i naprawa kotłów”; mix HVAC → „Montaż i serwis instalacji HVAC”. **Nie zostawiaj domyślnego H1**, jeśli nie pasuje. |
+| `heroBullets` | 2 punkty = **dwa najważniejsze atuty/oferty** klienta (krótko). Kolejność = priorytet. Nie kopiuj marketingu ze starej strony — wyciągnij fakty. |
+| `services[]` | 4–6 kart = **rzeczywista oferta**, od najważniejszej. Tytuł + 1 zdanie. Jeśli klient nie montuje kotłów — usuń. Jeśli robi tylko klimę — 4–6 usług klimatyzacyjnych. |
+| `servicesSectionSubtitle` | Jedno zdanie podsumowujące zakres (dopasuj do firmy). |
+| `serviceOptionGroups[]` | Opcje formularza = to, co klient faktycznie przyjmuje w zgłoszeniach. |
+| `faqs[]` | **5 pytań pod profil branżowy firmy** (klima / pompy / kotły / wentylacja / mix). Nie zostawiaj FAQ z `default.ts`, jeśli firma robi coś innego. |
+| `partners[]` | Tylko marki, którymi firma się chwali (lub `[]`). |
+| `footerTagline` | Krótki opis głównego profilu (np. „Klimatyzacja i pompy ciepła”). |
+
+**Szablon ≠ stara strona klienta.** Nie wklejaj sloganów. **Ale H1, bullety i usługi MUSZĄ odzwierciedlać to, czym firma żyje** — inaczej podgląd free value jest mylący.
+
+**Check przed buildem:** czy H1 + usługi + bullety + **FAQ** mówią to samo co strona klienta w sekcji „Oferta” / „Usługi”? Jeśli nie — popraw preset.
+
 ---
 
 ## Architektura szablonu — co edytujesz, a czego nie
@@ -65,7 +88,7 @@ Wszystko idzie przez preset → `src/lib/site.ts` → komponenty. **Nie hardcodu
 | `src/styles.css` | Kolory marki |
 | `public/logo.*`, `public/gallery/*`, `public/favicon.*` | Logo, zdjęcia, favicon |
 | `src/lib/presets/types.ts` + `index.tsx` (`SERVICE_ICONS`) | Tylko gdy potrzebujesz nowej ikony usługi |
-| `src/components/HowItWorks.tsx` | Tylko gdy oferta klienta mocno odbiega od serwisu grzewczego (np. sama klimatyzacja) |
+| `src/components/HowItWorks.tsx` | Rzadko — tylko gdy proces firmy mocno odbiega (np. tylko sprzedaż bez serwisu) |
 | `src/routes/index.tsx` | **Nie edytuj** przy personalizacji |
 | `src/routes/__root.tsx` | Tylko `theme-color` w meta, jeśli zmieniasz ciemny akcent |
 
@@ -77,36 +100,63 @@ Na koniec: `npm run build` — musi przejść bez błędów.
 
 ---
 
-## Zasada nadrzędna — nie przesadzaj z personalizacją
+## Zasada nadrzędna — szata graficzna + oferta klienta
 
-Szablon ma sprawdzony copy i strukturę. **Nie kopiuj** sloganów, haseł marketingowych ani długich list miast ze starej strony klienta.
+### Co jest szablonem (zostaw)
 
-### Zostaw ton i strukturę szablonu
+- **Układ strony** — sekcje, kolejność, UX, formularze, sticky bar, karuzele.
+- **Nagłówki sekcji** (hardcoded w `index.tsx`): „Nasze usługi”, „Opinie klientów”, „Nasze realizacje”, „Najczęstsze pytania”, „Jak to działa?”
+- **Ton** — krótko, konkretnie, premium dark. Bez marketingowego bełkotu ze starych stron.
 
-**Hero (układ stały — kolejność elementów):**
+### Styl copy — ogranicz „—” (pauza em)
+
+W treściach **widocznych na stronie** (preset: H1, bullety, usługi, FAQ, `serviceArea`, `alt` galerii, podtytuły sekcji) **nie nadużywaj znaku „—”**. Na stronie wygląda to sztucznie i źle.
+
+**Zamiast „—” używaj:**
+- przecinka: „Kraków i okolice, dojazd do klienta”
+- kropki i dwóch zdań: „Montaż i serwis. Dojazd do klienta.”
+- dwukropka, gdy pasuje: „Zakres: przeglądy, naprawy, montaż”
+
+**Źle:** „Klimatyzacja, pompy ciepła — od montażu po serwis.”  
+**Dobrze:** „Klimatyzacja, pompy ciepła. Od montażu po serwis.” lub „…, od montażu po serwis.”
+
+To samo w meta SEO i opisach usług — rzadko max 1 na cały preset, a najlepiej zero.
+
+### Co MUSISZ dopasować do klienta (priorytet treści)
+
+**H1, `heroBullets`, `services[]`** — zawsze zgodne z **głównymi usługami i priorytetami firmy**. To nie jest opcjonalne.
+
+1. Przeczytaj stronę klienta: co jest na pierwszym planie? (klima / pompy / kotły / wentylacja / serwis 24h…)
+2. Ustaw `heroHeadline` pod ten główny profil.
+3. Ustaw `heroBullets` na 2 najważniejsze fakty (nie slogany).
+4. Ustaw `services[]` na 4–6 realnych usług — **kolejność = priorytet**.
+5. Dopasuj FAQ, formularz, `partners[]`, SEO meta.
+
+**Nie kopiuj** haseł typu: „Twój komfort cenimy przede wszystkim”, „Fachowe doradztwo”, „Czyste powietrze”.
+
+### Hero (układ stały — kolejność elementów)
+
 1. Chip z oceną Google (`googleRating` + `googleReviewCount`)
-2. **H1** → pole presetu `heroHeadline`
-3. **Podtytuł** → pole `siteCity` w formacie „[Miasto] i okolice” (nie „cały Śląsk”, nie 5 miast naraz)
-4. **2 bullet pointy** → pole `heroBullets` (krótkie, konkretne — ton szablonu)
-5. CTA „Zadzwoń” + formularz leadów
+2. **H1** → `heroHeadline` (**dopasuj do firmy**)
+3. **Podtytuł** → `siteCity` w formacie „[Miasto] i okolice”
+4. **2 bullet pointy** → `heroBullets` (**dopasuj do firmy**)
+5. CTA „Zadzwoń” + formularz
 
-**Domyślny `heroHeadline` szablonu:** „Serwis i naprawa techniki grzewczej”  
-Zmień go **tylko** gdy oferta klienta jest wyraźnie inna (np. sama klimatyzacja → „Montaż i serwis klimatyzacji”). Zawsze krótko, 1 linia, bez marketingowego bełkotu.
+**Przykłady H1 (wybierz profil klienta, nie kopiuj ślepo):**
 
-**Domyślne `heroBullets` (dostosuj zakres, nie styl):**
-- „Przeglądy, naprawy i pierwsze uruchomienia kotłów oraz pomp ciepła.”
-- „Serwis gwarancyjny i pogwarancyjny.”
+| Profil firmy | Przykład H1 |
+|--------------|-------------|
+| Klimatyzacja | Montaż i serwis klimatyzacji |
+| Pompy ciepła | Montaż i serwis pomp ciepła |
+| Kotły / ogrzewanie | Serwis i naprawa kotłów |
+| Mix HVAC | Montaż i serwis instalacji HVAC |
+| Serwis awaryjny | Serwis awaryjny klimatyzacji i HVAC |
 
-**Nagłówki sekcji (hardcoded w `index.tsx` — nie zmieniaj):**
-- „Nasze usługi”, „Opinie klientów”, „Nasze realizacje”, „Najczęstsze pytania”, „Jak to działa?”
-
-**Subtitles sekcji (preset — dostosuj delikatnie):**
+**Subtitles sekcji (preset — dopasuj do oferty):**
 - `servicesSectionSubtitle`
 - `gallerySectionSubtitle`
 
-**Nie wstawiaj** haseł typu: „Twój komfort cenimy przede wszystkim”, „Fachowe doradztwo”, „Czyste powietrze”, „Zaufanie od lat”.
-
-Personalizuj tam, gdzie lead **widzi markę**: kolory, logo, zdjęcia, kontakt, usługi, opinie Google, meta SEO.
+Personalizuj tam, gdzie lead **widzi markę i ofertę**: kolory, logo, zdjęcia, kontakt, **H1, bullety, usługi**, opinie Google, meta SEO.
 
 ---
 
@@ -128,7 +178,7 @@ Personalizuj tam, gdzie lead **widzi markę**: kolory, logo, zdjęcia, kontakt, 
 | `email` | Prawdziwy e-mail |
 | `nip` / `regon` | Z wizytówki / strony / Maps |
 | `hours` | Godziny otwarcia |
-| `serviceArea` | Gdy **brak adresu**: „[Miasto] i okolice — dojazd do klienta” (fallback w Kontakt) |
+| `serviceArea` | Gdy **brak adresu**: „[Miasto] i okolice, dojazd do klienta” (fallback w Kontakt) |
 | `address` / `addressStreet*` / `addressCity` / `addressPostal` | **Priorytet w sekcji Kontakt** — gdy wypełnione, karta pokazuje „Adres”; bez adresu → `serviceArea` jako „Obszar działania” |
 | `mapsUrl` / `googleReviewsUrl` | Link z Google Maps |
 | `mapsQuery` | Fraza do wyszukania firmy |
@@ -190,7 +240,9 @@ W presetcie ustaw:
 
 ### 5. Usługi, FAQ, formularz
 
-**`services[]`** — 4–6 kart, dopasuj do oferty klienta. Każda karta: `{ icon: "wrench", title: "...", desc: "..." }` — `desc` = 1 zdanie.
+**`services[]`** — 4–6 kart = **priorytetowa oferta klienta** (od najważniejszej). Każda: `{ icon, title, desc }` — `desc` = 1 zdanie.
+
+**Przed wpisaniem:** sprawdź stronę klienta — co jest w menu / na pierwszym ekranie / w Google Maps (kategorie usług). H1 i `services[]` muszą mówić o tym samym profilu.
 
 **Dostępne ikony** (`icon` w presetcie):
 `wrench` · `shield-check` · `check-circle` · `zap` · `alert-triangle` · `flame`
@@ -200,7 +252,25 @@ Jeśli żadna nie pasuje (np. klimatyzacja → `snowflake`):
 2. Dodaj import + mapowanie w `index.tsx` → `SERVICE_ICONS`
 3. Użyj w presetcie
 
-**`faqs[]`** — 5 pytań w tonie szablonu. Używaj `siteCity` w odpowiedziach o zasięgu. Ceny: tylko jeśli klient je publicznie podaje.
+**`faqs[]`** — **5 pytań dopasowanych do profilu HVAC firmy**, nie ogólnego szablonu.
+
+1. Ustal profil klienta (to samo co przy H1 i usługach): **klimatyzacja**, **pompy ciepła**, **kotły/ogrzewanie**, **wentylacja/rekuperacja**, **serwis awaryjny**, **mix**.
+2. **3–4 pytania branżowe** = to, o co klienci tej firmy naprawdę pytają (ceny montażu, serwis, marki, czas realizacji, dojazd, gwarancja).
+3. **1–2 pytania uniwersalne** = dojazd / obszar (`siteCity`) i ewentualnie czas reakcji przy awarii (jeśli firma to oferuje).
+4. **Nie pytaj** o usługi, których firma nie ma (np. FAQ o kotłach u firmy od samej klimy).
+5. Ceny w odpowiedziach: tylko jeśli klient je **publicznie** podaje na stronie. Inaczej: „wycena po oględzinach / rozmowie”.
+
+**Przykłady tematów FAQ wg profilu:**
+
+| Profil firmy | Przykładowe pytania (dostosuj treść) |
+|--------------|--------------------------------------|
+| **Klimatyzacja** | Montaż split/multi-split? · Koszt montażu? · Serwis i odgrzybianie? · Jakie marki? · Czas montażu? |
+| **Pompy ciepła** | Montaż pompy? · Serwis gwarancyjny/pogwarancyjny? · Pierwsze uruchomienie? · Dotacje / formalności (jeśli firma to wspomina)? · Awaria zimą? |
+| **Kotły / ogrzewanie** | Przegląd kotła? · Koszt serwisu? · Autoryzowany serwis marek? · Naprawa awaryjna? · Pierwsze uruchomienie? |
+| **Wentylacja** | Montaż rekuperacji? · Serwis wentylacji? · Dobór mocy? · Przeglądy okresowe? |
+| **Mix HVAC** | Po 1 pytaniu z każdego głównego filaru firmy + dojazd |
+
+Ton: krótko, konkretnie (jak reszta szablonu). Używaj `siteCity` / `cityLocative` w odpowiedziach o zasięgu.
 
 **`serviceOptionGroups[]`** — opcje formularza; dopasuj do usług klienta (usuń grupy, których nie oferuje).
 
@@ -234,9 +304,9 @@ W presetcie ustaw:
 
 ### 7. „Jak to działa”
 
-Domyślnie **nie edytuj** — 3 kroki (Zgłoszenie → Termin → Wizyta serwisowa) pasują do serwisu grzewczego.
+Domyślnie **nie edytuj** — 3 kroki (Zgłoszenie → Termin → Realizacja) pasują do większości firm HVAC (montaż, serwis, przeglądy).
 
-Edytuj `src/components/HowItWorks.tsx` **tylko** gdy klient to np. firma montażowa klimatyzacji. Zachowaj strukturę 3 kroków i ton.
+Edytuj `src/components/HowItWorks.tsx` **tylko** gdy proces firmy mocno odbiega (np. tylko sprzedaż bez dojazdu). Zachowaj strukturę 3 kroków i ton.
 
 ### 8. Build i weryfikacja
 
@@ -249,16 +319,19 @@ npm run build
 
 ## Checklist przed oddaniem leadowi
 
-- [ ] Hero: ton szablonu, nie kopia starej strony klienta
-- [ ] `heroHeadline` + `heroBullets` + `siteCity` — krótkie, konkretne
+- [ ] **H1 (`heroHeadline`) = główna usługa firmy** (nie domyślny szablon, jeśli nie pasuje)
+- [ ] **`heroBullets` = 2 najważniejsze fakty/oferty** klienta (nie slogany ze starej strony)
+- [ ] **`services[]` = rzeczywista oferta, kolejność = priorytet** (4–6 kart)
+- [ ] **Copy bez nadmiaru „—”** (H1, bullety, usługi, FAQ: przecinek/kropka zamiast pauzy em)
+- [ ] Hero: ton szablonu, `siteCity` w formacie „[Miasto] i okolice”
 - [ ] Kolory marki w `styles.css` — glow tła, sekcje, timeline, **hover przycisków** (bez niebieskiego z szablonu)
 - [ ] Favicon = wycinek/kwadrat logo (`faviconUrl`), nie domyślny szablon
 - [ ] Logo: `logoIncludesName` poprawnie; przy samej ikonie — widoczny `siteName` obok
 - [ ] Hero i galeria = prawdziwe zdjęcia (nie placeholdery SVG)
 - [ ] Telefon, e-mail, NIP, REGON, godziny — poprawne
 - [ ] `mapsUrl` / `googleReviewsUrl` — działający link Maps
-- [ ] Usługi + ikony = rzeczywista oferta (4–6 kart)
-- [ ] FAQ i formularz dopasowane do oferty
+- [ ] Usługi + ikony = **priorytetowa oferta** (H1 i karty usług spójne ze stroną klienta)
+- [ ] **FAQ pod profil branżowy** (klima / pompy / kotły / wentylacja / mix — bez pytań o usługi, których firma nie oferuje)
 - [ ] **Kontakt:** jeśli firma ma adres → karta „Adres”; bez adresu → „Obszar działania”
 - [ ] **`googleReviewCount` = dokładna liczba z profilu Maps** (nie długość `reviews[]`)
 - [ ] Ocena Google i treści recenzji = profil Google Maps
@@ -270,7 +343,8 @@ npm run build
 
 ## Czego nie robić
 
-- Nie kopiuj marketingu ze starej strony do hero ani nagłówków
+- Nie nadużywaj znaku „—” w copy widocznym na stronie (wygląda sztucznie)
+- Nie kopiuj marketingu ze starej strony do hero (slogany), ale H1, bullety i usługi muszą odzwierciedlać ofertę
 - Nie edytuj `index.tsx` „dla jednego klienta”
 - Nie zostawiaj presetu `default` jako aktywnego — zawsze nowy plik klienta
 - Nie wymyślaj opinii Google

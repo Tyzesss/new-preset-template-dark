@@ -1,6 +1,8 @@
-# Szablon landing page — serwis HVAC / technika grzewcza
+# Szablon landing page — HVAC (klimatyzacja, pompy, wentylacja, ogrzewanie)
 
-Responsywny one-page dla firm serwisowych (kotły, pompy ciepła, klimatyzacja). TanStack Start + React + Tailwind.
+Responsywny one-page dla firm HVAC i instalacyjnych. TanStack Start + React + Tailwind.
+
+**Szablon = szata graficzna + UX.** Przy personalizacji **H1, bullety hero i usługi muszą odzwierciedlać priorytety firmy** — patrz [PROMPT-PERSONALIZACJA.md](./PROMPT-PERSONALIZACJA.md).
 
 ## Szybki start
 

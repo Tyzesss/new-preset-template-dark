@@ -155,7 +155,7 @@ function CTAButton({ className = "" }: { className?: string }) {
 }
 
 const FORM_HEADLINE = "Nie możesz się skontaktować?";
-const FORM_SUBLINE = "Zostaw numer — oddzwonimy do Ciebie.";
+const FORM_SUBLINE = "Zostaw numer, oddzwonimy do Ciebie.";
 
 function LeadForm() {
   const [service, setService] = useState("");
@@ -593,7 +593,7 @@ function Index() {
         id="opinie"
         eyebrow="Opinie Google"
         title="Opinie klientów"
-        subtitle="Sprawdzone recenzje z profilu Google Maps — możesz je zweryfikować jednym kliknięciem."
+        subtitle="Sprawdzone recenzje z profilu Google Maps. Możesz je zweryfikować jednym kliknięciem."
         glow={{ x: "78%", y: "36%", cyan: true }}
       >
         <GoogleReviewsSection data={googleReviews} />
@@ -700,7 +700,7 @@ function Index() {
       {/* FOOTER */}
       <footer className="relative px-4 pt-10 pb-24 text-foreground md:pb-8">
         <div className="mx-auto max-w-6xl text-center text-sm text-muted-foreground">
-          <p className="font-bold text-foreground">{SITE_NAME} — {FOOTER_TAGLINE}</p>
+          <p className="font-bold text-foreground">{SITE_NAME} · {FOOTER_TAGLINE}</p>
           <p className="mt-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
             <a href={PHONE_HREF} className="inline-flex items-center gap-1.5 transition-smooth hover:text-foreground">
               <Phone className="h-3.5 w-3.5" /> {PHONE_DISPLAY}

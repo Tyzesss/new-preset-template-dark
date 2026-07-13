@@ -16,6 +16,29 @@ Szczegóły dla agenta Cursor: [PROMPT-PERSONALIZACJA.md](./PROMPT-PERSONALIZACJ
 
 **Styl copy:** w treściach presetu (H1, bullety, usługi, FAQ) **ograniczaj znak „—”**. Zamiast niego: przecinek, kropka, dwukropek. Na stronie wygląda to naturalniej.
 
+## Krok zero (przed edycją presetu)
+
+Zanim skopiujesz `default.ts`, ustal profil firmy:
+
+1. Główny filar (klima / pompy / kotły / wentylacja / mix)
+2. Jedno miasto bazowe + zasięg
+3. Model pracy (montaż, serwis, awarie…)
+
+**Spójność:** `heroHeadline`, `heroBullets`, `services[]`, `faqs[]`, `serviceOptionGroups[]`, `footerTagline` i `siteTitle` muszą opisywać **ten sam profil**. Szczegóły: [PROMPT-PERSONALIZACJA.md](./PROMPT-PERSONALIZACJA.md) → „Krok zero”.
+
+### Źródło prawdy (rozjazd strona vs Maps)
+
+| Dane | Priorytet |
+|------|-----------|
+| Telefon, godziny, adres, NIP | **Google Maps** |
+| Oferta, marki, zdjęcia, ceny | **stara strona** |
+| Ocena i liczba opinii | **tylko Maps** |
+
+### Co brać ze starej strony
+
+**Bierz:** usługi, marki, zdjęcia realizacji, NIP (weryfikuj z Maps).  
+**Nie bierz:** sloganów, listy wielu miast, „najlepsi/liderzy”.
+
 ## Architektura
 
 ```
@@ -38,10 +61,10 @@ komponenty + strony         ← layout (nie edytuj)
 
 | Pole | Przykład | Uwagi |
 |------|----------|-------|
-| `siteName` | `TermoSerwis` | Krótka nazwa marki |
-| `companyLegalName` | `TermoSerwis Jan Kowalski` | Pełna nazwa (RODO, schema) |
-| `siteCity` | `Kraków i okolice` | Pod H1 w hero |
-| `cityLocative` | `w Krakowie` | Do opisów SEO |
+| `siteName` | `TermoSerwis` | Krótka nazwa **marketingowa** (header, logo) |
+| `companyLegalName` | `TermoSerwis Jan Kowalski` | Pełna forma prawna (RODO, schema) — nie mylić ze `siteName` |
+| `siteCity` | `Kraków i okolice` | Pod H1 w hero — **jedno miasto**, nie lista |
+| `cityLocative` | `w Krakowie` | Odmiana miejscowości — sprawdź ręcznie |
 | `email` | `kontakt@termoserwis.pl` | |
 | `phoneDisplay` | `12 345 67 89` | Format wyświetlany |
 | `phoneE164` | `+48123456789` | WhatsApp, tel: link |
@@ -55,9 +78,9 @@ komponenty + strony         ← layout (nie edytuj)
 | Pole | Uwagi |
 |------|-------|
 | `siteDefaultUrl` | Domena klienta |
-| `siteTitle` | Tytuł w Google (max ~60 znaków) |
-| `siteKeywords` | Słowa kluczowe, przecinkami |
-| `siteDescription` | Meta description |
+| `siteTitle` | `[Usługa] [Miasto] \| [siteName]` (max ~60 znaków) |
+| `siteKeywords` | 5–8 fraz z oferty, bez stuffingu |
+| `siteDescription` | 1–2 zdania, **inne niż H1**, z CTA/telefonem |
 | `mapsUrl` | Link do profilu Google Maps |
 | `googleReviewsUrl` | Ten sam lub osobny link do opinii |
 | `googleRating` / `googleReviewCount` | Ocena i **łączna liczba opinii z Maps** (nie długość `reviews[]`) |
@@ -72,8 +95,8 @@ komponenty + strony         ← layout (nie edytuj)
 | `footerTagline` | Krótki opis profilu w stopce |
 | `services` | **4–6 kart — rzeczywista oferta, kolejność = priorytet** |
 | `faqs` | **5 pytań pod profil HVAC firmy** (nie kopiuj `default.ts` bez zmian) |
-| `serviceOptionGroups` | Opcje w formularzu kontaktowym |
-| `partners` | Marki w sekcji partnerów |
+| `serviceOptionGroups` | **Lustrzane odbicie `services[]`** — bez grup spoza oferty |
+| `partners` | Tylko potwierdzone marki ze strony klienta, lub `[]` |
 | `reviews` | Opinie fallback (gdy brak Google API) |
 | `gallery` | Zdjęcia realizacji |
 | `logoIncludesName` | `true` = logo ma napis; `false` = pokaż `siteName` obok ikony |
@@ -103,6 +126,15 @@ Ceny w odpowiedziach: tylko gdy klient podaje je publicznie na swojej stronie.
 Dostępne wartości `icon` w `services[]`:
 
 `wrench` · `shield-check` · `check-circle` · `zap` · `alert-triangle` · `flame`
+
+**Mapowanie:** montaż → `check-circle` · serwis → `wrench` · przeglądy → `shield-check` · pompy/rekuperacja → `zap` · awaria → `alert-triangle` · kotły → `flame`
+
+**Limity:** H1 ~50 znaków · bullet ~80 znaków · tytuł usługi 3–6 słów · opis = 1 zdanie.
+
+### Formularz i partnerzy
+
+- `serviceOptionGroups[]` = tylko usługi z `services[]`, max 4–5 grup, po 2–4 opcje
+- `partners[]` = marki ze strony klienta / autoryzacja; brak dowodu → `[]`, max 6–8
 
 ## Krok 2 — Rejestracja presetu
 
@@ -141,17 +173,37 @@ logoIncludesName: false,  // false = ikona bez napisu → siteName obok w header
 faviconUrl: "/favicon.png",  // kwadratowy wycinek logo — obowiązkowo przy personalizacji
 ```
 
+**Logo:** preferuj PNG/SVG z przezroczystością. JPG z białym tłem na ciemnym headerze wygląda źle.
+
 ### Favicon
 
 Przy każdym kliencie: wygeneruj `public/favicon.png` z logo (ikona lub całe logo w kwadracie). Ustaw `faviconUrl` w presetcie.
 
 ### Galeria i hero
 
+**Weź:** zdjęcia realizacji/montaży klienta. **Nie bierz:** stocków, logo, banerów z tekstem.
+
 1. Wgraj zdjęcia JPG do `public/gallery/`
 2. Uruchom `node scripts/optimize-gallery.mjs` (konwersja do WebP)
 3. Zaktualizuj `gallery[]`, `heroImage`, `ogImage` w presetcie
+4. `alt` i `caption` spójne z `gallerySectionSubtitle`
+
+#### Zdjęcia zapasowe (tylko gdy <3 u klienta)
+
+**Tylko jeśli** klient nie ma sensownych zdjęć realizacji **lub jest ich mniej niż 3** — skopiuj przykładowe zdjęcia z lokalnych folderów:
+
+| Profil | Folder |
+|--------|--------|
+| Klimatyzacja | `C:\Users\Tymek\Desktop\TOOLS\KLIMATYZACJA` |
+| Pompy ciepła / kotły | `C:\Users\Tymek\Desktop\TOOLS\POMPY KOTLY` |
+
+Mix HVAC → folder głównego filaru firmy. Potem `public/gallery/` + preset jak wyżej. Szczegóły: [PROMPT-PERSONALIZACJA.md](./PROMPT-PERSONALIZACJA.md) → sekcja 4.
 
 ## Krok 5 — Kolory marki
+
+1. Kolor z **logo** (pipeta na przezroczystym tle), nie z motywu WP
+2. Logo B/W → akcent ze starej strony (przycisk, nagłówek)
+3. Po zmianie: hover CTA, timeline, glow tła przy scrollu
 
 W `src/styles.css` dostosuj:
 
@@ -177,19 +229,41 @@ npm run build          # weryfikacja
 
 Deploy na Vercel z env vars z kroku 3.
 
+**Po buildzie:** przegląd wizualny desktop + mobile (hero → stopka), kliknięcia tel/WhatsApp/Maps, brak placeholderów i starych kolorów w `styles.css`.
+
 ## Checklist końcowy
 
+- [ ] **Krok zero:** spójność H1 = usługi = FAQ = formularz
 - [ ] **H1 + bullety + usługi = priorytety firmy** (spójne ze stroną klienta)
+- [ ] **Formularz i partnerzy** dopasowane do oferty
+- [ ] **SEO meta** spójne z profilem, inne niż H1
+- [ ] **Logo** z przezroczystością, favicon z logo klienta
+- [ ] **`googleReviewCount`** = liczba z Maps (nie długość `reviews[]`)
+- [ ] **Opinie:** 3–5 prawdziwych, dotyczących głównej usługi firmy
 - [ ] **FAQ pod profil branżowy** (klima / pompy / kotły / wentylacja, bez „obcych” usług)
 - [ ] Copy bez nadmiaru „—” (przecinek lub kropka zamiast pauzy em)
 - [ ] Zero placeholderów („Twoje Miasto”, „600 000 000”, „LOGO”)
-- [ ] Wszystkie zdjęcia załadowane i widoczne
+- [ ] Wszystkie zdjęcia załadowane (klient lub zapasowe z TOOLS przy <3 realizacjach)
 - [ ] Telefon, WhatsApp, e-mail działają
 - [ ] Formularz wysyła maile
 - [ ] Google Maps link prowadzi do profilu klienta
 - [ ] RODO zawiera prawdziwe NIP/REGON
 - [ ] `robots.txt` i `sitemap.xml` mają domenę klienta
 - [ ] Mobile: sticky bar, karuzele, formularz
+- [ ] Przegląd wizualny desktop + mobile (nie tylko `npm run build`)
+
+## Najczęstsze błędy
+
+1. `googleReviewCount` = długość `reviews[]`
+2. FAQ/usługi/formularz z `default.ts` przy firmie od jednej branży
+3. Stare kolory / niebieski glow z poprzedniego klienta
+4. Placeholderowe zdjęcia i favicon
+5. Zapasowe z TOOLS mimo że klient ma własne zdjęcia (≥3)
+6. `siteCity` z wieloma miastami
+7. `siteName` ≠ `companyLegalName` w RODO
+8. Logo JPG z białym tłem na ciemnym headerze
+
+Pełna lista: [PROMPT-PERSONALIZACJA.md](./PROMPT-PERSONALIZACJA.md) → „Najczęstsze błędy”.
 
 ## Czego NIE edytować
 

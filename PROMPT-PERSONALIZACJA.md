@@ -12,6 +12,56 @@ Zrób rebrand mojego **szablonu graficznego HVAC** (TanStack Start, `src/lib/pre
 
 ---
 
+## Krok zero — zanim dotkniesz presetu
+
+**Zanim** skopiujesz `default.ts` i cokolwiek wpiszesz, wypisz (dla siebie) profil firmy w **3 zdaniach**:
+
+1. **Główny filar:** klimatyzacja / pompy ciepła / kotły / wentylacja / mix HVAC / serwis awaryjny
+2. **Miasto + zasięg:** jedno miasto bazowe (nie lista 5 miast ze starej strony)
+3. **Model pracy:** montaż, serwis, awarie, tylko dojazd, punkt stacjonarny?
+
+Potem sprawdź **spójność oferty** — wszystkie pola muszą mówić o tym samym profilu:
+
+| `heroHeadline` | `heroBullets` | `services[]` | `faqs[]` | `serviceOptionGroups[]` | `footerTagline` | `siteTitle` |
+|----------------|---------------|--------------|----------|-------------------------|-----------------|-------------|
+| ten sam profil | ten sam profil | ten sam profil | ten sam profil | ten sam profil | ten sam profil | ten sam profil |
+
+Jeśli H1 mówi o klimie, a FAQ o kotłach → **popraw przed buildem**.
+
+### Źródło prawdy przy rozjazdach (stara strona vs Maps)
+
+| Dane | Priorytet |
+|------|-----------|
+| Telefon, godziny, adres, nazwa firmy, NIP | **Google Maps** (gdy rozjazd ze starą stroną) |
+| Oferta, marki, zdjęcia realizacji, ceny | **stara strona klienta** |
+| Ocena Google, liczba opinii, treść recenzji | **tylko Google Maps** |
+| E-mail | strona klienta; jeśli brak — Maps lub footer starej strony |
+
+### Co wyciągnąć ze starej strony
+
+| **Bierz** | **Nie bierz** |
+|-----------|---------------|
+| lista usług, marki, ceny (jeśli publiczne) | slogany, hasła marketingowe |
+| zdjęcia realizacji / montaży | lista wielu miast w hero |
+| NIP/REGON (weryfikuj z Maps) | długie „o nas” z lat 90. |
+| fakty: autoryzacja, lata działalności | „najlepsi”, „liderzy”, „komfort przede wszystkim” |
+
+### Geografia — jedno miasto
+
+| Źle | Dobrze |
+|-----|--------|
+| `siteCity`: „Katowice, Chorzów, Sosnowiec i okolice” | `siteCity`: „Katowice i okolice” |
+| `serviceArea` z całym województwem | jedno miasto + „dojazd do klienta” |
+| `cityLocative` zgadywane | sprawdź odmianę: „w Krakowie”, „w Gdańsku”, „w Łodzi” |
+
+### `siteName` vs `companyLegalName`
+
+- **`siteName`** = nazwa marketingowa (header, logo, chip)
+- **`companyLegalName`** = pełna forma prawna do RODO/schema (Jan Kowalski, sp. z o.o., itd.)
+- Skrót w logo ≠ pełna nazwa w stopce → rozdziel poprawnie
+
+---
+
 ## Obowiązkowe rutynowe czynności (każda personalizacja)
 
 Wykonaj **zawsze**, bez pytania — to nie jest opcjonalne:
@@ -197,6 +247,12 @@ Personalizuj tam, gdzie lead **widzi markę i ofertę**: kolory, logo, zdjęcia,
 
 Zidentyfikuj **główny kolor marki ze logo** (nie z przypadkowych elementów WP).
 
+**Procedura:**
+1. Pipeta z **logo na przezroczystym tle** (nie z kolorowego banera reklamowego)
+2. Logo czarno-białe → akcent z przycisku/nagłówka **starej strony**, nie domyślny niebieski szablonu
+3. Po zmianie sprawdź **3 miejsca:** hover CTA, timeline „Jak to działa”, glow tła przy scrollu
+4. Bardzo jasny kolor marki → sprawdź kontrast tekstu na przycisku CTA (czytelność)
+
 Edytuj `src/styles.css` — sekcja `:root`:
 
 | Zmienna | Efekt |
@@ -217,6 +273,8 @@ Zachowaj **ciemny premium layout** — nie rób jasnego motywu.
 ### 3. Logo i favicon
 
 - Pobierz logo klienta → `public/logo.png` (lub `.svg`)
+- **Preferuj PNG/SVG z przezroczystością** — JPG z białym tłem na ciemnym headerze wygląda źle
+- Jeśli tylko wersja na białym tle → szukaj wersji odwróconej / bez tła na stronie klienta
 - Ustaw `logoUrl` w presetcie, np. `"/logo.png"`
 - **`logoIncludesName`:** `false` gdy logo to sama ikona (nazwa `siteName` pojawi się obok); `true` gdy logo zawiera napis firmy
 - **Favicon (obowiązkowe):** wytnij ikonę z logo → `public/favicon.png` → `faviconUrl: "/favicon.png"`. Nie zostawiaj domyślnego favicona szablonu.
@@ -224,6 +282,12 @@ Zachowaj **ciemny premium layout** — nie rób jasnego motywu.
 ### 4. Zdjęcia (hero + galeria)
 
 Znajdź **bezpośrednie URL-e** zdjęć realizacji/montaży na stronie klienta.
+
+**Weź:** montaże, serwis na miejscu, urządzenia zrealizowane u klienta (ich domena, FB, galeria).
+
+**Nie bierz:** stocków, ikon, logo jako hero, rozmazanych miniaturek WP, zdjęć producenta bez kontekstu realizacji.
+
+**Hero** = najlepsze zdjęcie **ich pracy**, nie baner reklamowy z dużym tekstem.
 
 **Dla podglądu free value (szybko):** możesz użyć pełnych URL-i z domeny klienta w presetcie.
 
@@ -236,11 +300,51 @@ W presetcie ustaw:
 
 **Galeria na stronie:** desktop pokazuje 3 zdjęcia + przycisk „Pokaż wszystkie” (już wbudowane). Przy >3 zdjęciach dodaj je do `gallery[]` — expand zadziała sam.
 
-`alt` i `caption`: konkretne, SEO-friendly, bez nazwy szablonu.
+`alt` i `caption`: konkretne, SEO-friendly, spójne z `gallerySectionSubtitle` (bez keyword stuffingu).
+
+#### Zdjęcia zapasowe — TYLKO gdy brak realizacji klienta
+
+**Użyj przykładowych zdjęć wyłącznie wtedy**, gdy na stronie klienta / Maps **nie ma** sensownych zdjęć realizacji **albo jest ich mniej niż 3** (łącznie hero + galeria).
+
+**Priorytet zawsze:** zdjęcia klienta. Zapasowe = ostateczność na podgląd free value, nie zamiast ich materiałów gdy są dostępne.
+
+| Profil firmy | Folder ze zdjęciami przykładowymi |
+|--------------|-----------------------------------|
+| Klimatyzacja (główny filar) | `C:\Users\Tymek\Desktop\TOOLS\KLIMATYZACJA` |
+| Pompy ciepła, kotły, ogrzewanie (główny filar) | `C:\Users\Tymek\Desktop\TOOLS\POMPY KOTLY` |
+| Mix HVAC | folder pasujący do **głównego** filaru z kroku zero (klima → KLIMATYZACJA, pompy/kotły → POMPY KOTLY) |
+
+**Procedura:**
+1. Skopiuj wybrane pliki do `public/gallery/` (np. `klient-1.jpg`, `klient-2.jpg`…)
+2. Opcjonalnie: `node scripts/optimize-gallery.mjs`
+3. Ustaw `heroImage`, `ogImage` i `gallery[]` w presetcie
+4. **`alt` i `caption`** dopasuj do profilu klienta i miasta (np. „Montaż klimatyzacji split, Kraków”) — nie pisz, że to stock
+5. W raporcie końcowym **zaznacz**, że użyto zdjęć zapasowych i ile własnych znalazłeś u klienta
+
+**Nie używaj** placeholderów SVG z szablonu, gdy możesz wziąć zapasowe zdjęcia z powyższych folderów.
 
 ### 5. Usługi, FAQ, formularz
 
-**`services[]`** — 4–6 kart = **priorytetowa oferta klienta** (od najważniejszej). Każda: `{ icon, title, desc }` — `desc` = 1 zdanie.
+**`services[]`** — 4–6 kart = **priorytetowa oferta klienta** (od najważniejszej). Kolejność = jak na stronie klienta / w menu, nie alfabetycznie.
+
+**Limity copy:**
+- **H1:** max ~50 znaków, bez kropki na końcu
+- **Bullet:** max ~80 znaków, zaczyna się od faktu (nie „Jesteśmy…”)
+- **Tytuł usługi:** 3–6 słów, czasownik + obiekt (np. „Montaż klimatyzacji split”)
+- **Opis usługi:** jedno zdanie, bez powtórzenia tytułu
+
+**Mapowanie ikon (nie losuj):**
+
+| Typ usługi | Ikona |
+|------------|-------|
+| Montaż, uruchomienie | `check-circle` |
+| Serwis, naprawa | `wrench` |
+| Przeglądy, gwarancja | `shield-check` |
+| Pompy ciepła, rekuperacja | `zap` |
+| Awaria, pilny dojazd | `alert-triangle` |
+| Kotły, ogrzewanie | `flame` |
+
+Każda karta: `{ icon, title, desc }` — `desc` = 1 zdanie.
 
 **Przed wpisaniem:** sprawdź stronę klienta — co jest w menu / na pierwszym ekranie / w Google Maps (kategorie usług). H1 i `services[]` muszą mówić o tym samym profilu.
 
@@ -272,7 +376,25 @@ Jeśli żadna nie pasuje (np. klimatyzacja → `snowflake`):
 
 Ton: krótko, konkretnie (jak reszta szablonu). Używaj `siteCity` / `cityLocative` w odpowiedziach o zasięgu.
 
-**`serviceOptionGroups[]`** — opcje formularza; dopasuj do usług klienta (usuń grupy, których nie oferuje).
+Ton: krótko, konkretnie (jak reszta szablonu). Używaj `siteCity` / `cityLocative` w odpowiedziach o zasięgu.
+
+**`serviceOptionGroups[]`** — **lustrzane odbicie `services[]`**:
+- Grupy = tylko usługi, które firma faktycznie oferuje (usuń całe grupy spoza oferty)
+- Max 4–5 grup, po 2–4 opcje (szybki wybór na mobile)
+- Etykiety grup w mianowniku (Klimatyzacja, Pompy ciepła), opcje konkretne
+
+**`partners[]`:**
+- Tylko marki wymienione na stronie klienta / „autoryzowany serwis”
+- Brak dowodu → `[]` (lepiej pusto niż zmyślone marki)
+- Poprawna pisownia (Mitsubishi, Daikin…), max 6–8 pozycji
+
+### SEO (meta, nie hero)
+
+- **`siteTitle`:** `[Główna usługa] [Miasto] | [siteName]` (max ~60 znaków)
+- **`siteDescription`:** 1–2 zdania, **inne sformułowanie niż H1**, z telefonem lub CTA
+- **`siteKeywords`:** 5–8 fraz tylko z oferty klienta, bez „najlepszy serwis”
+- **`footerTagline`:** krótszy profil firmy, ≠ `heroHeadline`
+- Nie wklejaj sloganu ze starej strony do meta
 
 ### 6. Opinie Google (obowiązkowe)
 
@@ -295,9 +417,12 @@ W presetcie ustaw:
 - Hero, sekcja „Opinie klientów” i JSON-LD pokazują `googleReviewCount` — musi zgadzać się z Maps co do liczby.
 
 **Zasady `reviews[]`:**
+- Wybierz 3–5 opinii, które **wspominają główną usługę** firmy (u firmy od klimy opinia o klimie)
+- Mix: montaż + serwis + szybka reakcja; `relativeTime` zgodne z Maps (nie wymyślaj)
 - `name`: inicjały z Maps lub pomiń → „Użytkownik Google Maps”
-- `text`: treść z Maps (możesz skrócić, nie wymyślaj)
+- `text`: treść z Maps (możesz skrócić, nie parafrazuj na „lepsze” niż oryginał)
 - `source: "google"`, `rating`, `relativeTime` (np. „3 mies. temu”)
+- Na Maps <3 opinie → weź wszystkie dostępne, nie duplikuj
 
 - **Nie zostawiaj** fikcyjnych opinii z `default.ts` (Anna K., Marek W.…)
 - Hero chip, sekcja „Opinie klientów” i JSON-LD (`schema.ts`) biorą dane z presetu automatycznie
@@ -315,10 +440,30 @@ npm run generate:seo
 npm run build
 ```
 
+**`npm run build` nie wystarczy** — obowiązkowy przegląd wizualny:
+
+**Desktop (przewiń całość):** hero → usługi → opinie → galeria → FAQ → kontakt → stopka
+
+**Mobile:** sticky bar, formularz, karuzele, czytelność H1
+
+**Kliknięcia:** `tel:`, WhatsApp, link Maps, formularz (jeśli env ustawione)
+
+**Szukaj śladów poprzedniego klienta:** stare kolory w `styles.css`, placeholdery „Twoje Miasto”, fikcyjne opinie (Anna K., Marek W.).
+
+### Raport końcowy (wypisz przed oddaniem)
+
+Krótko podsumuj:
+- Profil firmy (1 zdanie)
+- Skąd wzięto telefon i NIP (Maps / strona)
+- `googleReviewCount` z Maps
+- Liczba zdjęć w galerii
+- Czy formularz odzwierciedla `services[]`
+
 ---
 
 ## Checklist przed oddaniem leadowi
 
+- [ ] **Krok zero:** profil firmy ustalony, tabela spójności (H1 = usługi = FAQ = formularz)
 - [ ] **H1 (`heroHeadline`) = główna usługa firmy** (nie domyślny szablon, jeśli nie pasuje)
 - [ ] **`heroBullets` = 2 najważniejsze fakty/oferty** klienta (nie slogany ze starej strony)
 - [ ] **`services[]` = rzeczywista oferta, kolejność = priorytet** (4–6 kart)
@@ -327,17 +472,41 @@ npm run build
 - [ ] Kolory marki w `styles.css` — glow tła, sekcje, timeline, **hover przycisków** (bez niebieskiego z szablonu)
 - [ ] Favicon = wycinek/kwadrat logo (`faviconUrl`), nie domyślny szablon
 - [ ] Logo: `logoIncludesName` poprawnie; przy samej ikonie — widoczny `siteName` obok
-- [ ] Hero i galeria = prawdziwe zdjęcia (nie placeholdery SVG)
+- [ ] Hero i galeria = zdjęcia klienta; **tylko przy <3 zdjęciach** → zapasowe z folderów TOOLS (patrz sekcja 4)
 - [ ] Telefon, e-mail, NIP, REGON, godziny — poprawne
 - [ ] `mapsUrl` / `googleReviewsUrl` — działający link Maps
 - [ ] Usługi + ikony = **priorytetowa oferta** (H1 i karty usług spójne ze stroną klienta)
 - [ ] **FAQ pod profil branżowy** (klima / pompy / kotły / wentylacja / mix — bez pytań o usługi, których firma nie oferuje)
+- [ ] **Formularz = lustrzane odbicie usług** (bez grup spoza oferty)
+- [ ] **`partners[]`:** tylko potwierdzone marki lub `[]`
+- [ ] **SEO:** `siteTitle` / `siteDescription` spójne z profilem, inne niż H1
+- [ ] **Logo:** PNG/SVG z przezroczystością (nie JPG z białym tłem na ciemnym headerze)
 - [ ] **Kontakt:** jeśli firma ma adres → karta „Adres”; bez adresu → „Obszar działania”
 - [ ] **`googleReviewCount` = dokładna liczba z profilu Maps** (nie długość `reviews[]`)
 - [ ] Ocena Google i treści recenzji = profil Google Maps
 - [ ] `siteTitle` / `siteDescription` — SEO w meta, nie w H1
 - [ ] `npm run build` przechodzi
+- [ ] **Przegląd wizualny** desktop + mobile (nie tylko build)
 - [ ] Zero placeholderów: „Twoje Miasto”, „600 000 000”, „LOGO”, fikcyjne opinie
+- [ ] **Raport końcowy** wypisany (profil, źródła danych, opinie, galeria, formularz)
+
+---
+
+## Najczęstsze błędy po personalizacji
+
+1. `googleReviewCount` = długość `reviews[]` zamiast liczby z Maps
+2. FAQ / usługi / formularz zostawione z `default.ts` przy firmie od jednej branży
+3. Niebieski glow / stare kolory poprzedniego klienta w `styles.css`
+4. Generyczny favicon szablonu
+5. `logoIncludesName` źle → brak nazwy lub duplikat obok logo
+6. Nadmiar „—” w copy
+7. `siteCity` z listą wielu miast
+8. Formularz z usługami, których firma nie oferuje
+9. Placeholderowe SVG zamiast zdjęć klienta lub zapasowych z TOOLS
+10. Zapasowe zdjęcia z TOOLS użyte mimo że klient ma ≥3 własne realizacje
+11. Kolory z motywu WP zamiast z logo
+12. Logo JPG z białym tłem na ciemnym tle
+13. `siteName` i `companyLegalName` pomylone w RODO/stopce
 
 ---
 

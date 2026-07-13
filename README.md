@@ -2,7 +2,7 @@
 
 Responsywny one-page dla firm HVAC i instalacyjnych. TanStack Start + React + Tailwind.
 
-**Szablon = szata graficzna + UX.** Przy personalizacji **H1, bullety hero i usługi muszą odzwierciedlać priorytety firmy** — patrz [PROMPT-PERSONALIZACJA.md](./PROMPT-PERSONALIZACJA.md).
+**Szablon = szata graficzna + UX.** Przy personalizacji **H1, bullety hero i usługi muszą odzwierciedlać priorytety firmy** — patrz [PROMPT-PERSONALIZACJA.md](./PROMPT-PERSONALIZACJA.md) (zacznij od **„Krok zero”**).
 
 ## Szybki start
 

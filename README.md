@@ -50,7 +50,7 @@ export const PRESETS = {
 | Plik | Opis |
 |------|------|
 | `public/logo.svg` (lub `.png`) | Logo firmy — ustaw `logoUrl` w presetcie |
-| `public/gallery/*` | Zdjęcia realizacji (5+ szt.) |
+| `public/gallery/*` | Realizacje: klient priorytetowo; brak → 6 zapasowych; <6 → dopełnij do 6; >6 → wszystkie |
 | `public/favicon.svg` | Ikona strony |
 
 Po wgraniu zdjęć JPG: `node scripts/optimize-gallery.mjs` — konwertuje do WebP.

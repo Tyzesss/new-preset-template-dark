@@ -181,23 +181,28 @@ Przy każdym kliencie: wygeneruj `public/favicon.png` z logo (ikona lub całe lo
 
 ### Galeria i hero
 
-**Weź:** zdjęcia realizacji/montaży klienta. **Nie bierz:** stocków, logo, banerów z tekstem.
+**Priorytet:** zdjęcia ze strony klienta, potem zapasowe z TOOLS.
 
-1. Wgraj zdjęcia JPG do `public/gallery/`
-2. Uruchom `node scripts/optimize-gallery.mjs` (konwersja do WebP)
-3. Zaktualizuj `gallery[]`, `heroImage`, `ogImage` w presetcie
-4. `alt` i `caption` spójne z `gallerySectionSubtitle`
+| Realizacje u klienta | `gallery[]` |
+|----------------------|-------------|
+| 0 | 6 z folderu zapasowego |
+| 1–5 | klient + zapasowe **do 6 łącznie** |
+| 6 | tylko klient |
+| 7+ | **wszystkie** zdjęcia klienta (nie ucinaj) |
 
-#### Zdjęcia zapasowe (tylko gdy <3 u klienta)
+1. Zbierz zdjęcia klienta, policz ile masz
+2. Wgraj do `public/gallery/` (klient + ewentualne uzupełnienie)
+3. `node scripts/optimize-gallery.mjs` (opcjonalnie)
+4. Ustaw `heroImage`, `ogImage`, `gallery[]` — `alt`/`caption` spójne z ofertą
 
-**Tylko jeśli** klient nie ma sensownych zdjęć realizacji **lub jest ich mniej niż 3** — skopiuj przykładowe zdjęcia z lokalnych folderów:
+**Foldery zapasowe** (gdy brakuje u klienta):
 
 | Profil | Folder |
 |--------|--------|
 | Klimatyzacja | `C:\Users\Tymek\Desktop\TOOLS\KLIMATYZACJA` |
 | Pompy ciepła / kotły | `C:\Users\Tymek\Desktop\TOOLS\POMPY KOTLY` |
 
-Mix HVAC → folder głównego filaru firmy. Potem `public/gallery/` + preset jak wyżej. Szczegóły: [PROMPT-PERSONALIZACJA.md](./PROMPT-PERSONALIZACJA.md) → sekcja 4.
+Mix HVAC → folder głównego filaru. Pełna procedura: [PROMPT-PERSONALIZACJA.md](./PROMPT-PERSONALIZACJA.md) → sekcja 4.
 
 ## Krok 5 — Kolory marki
 
@@ -243,7 +248,7 @@ Deploy na Vercel z env vars z kroku 3.
 - [ ] **FAQ pod profil branżowy** (klima / pompy / kotły / wentylacja, bez „obcych” usług)
 - [ ] Copy bez nadmiaru „—” (przecinek lub kropka zamiast pauzy em)
 - [ ] Zero placeholderów („Twoje Miasto”, „600 000 000”, „LOGO”)
-- [ ] Wszystkie zdjęcia załadowane (klient lub zapasowe z TOOLS przy <3 realizacjach)
+- [ ] **Galeria:** klient priorytetowo; 0→6 zapasowych; <6→dopełnij do 6; >6→wszystkie realizacje
 - [ ] Telefon, WhatsApp, e-mail działają
 - [ ] Formularz wysyła maile
 - [ ] Google Maps link prowadzi do profilu klienta
@@ -258,10 +263,11 @@ Deploy na Vercel z env vars z kroku 3.
 2. FAQ/usługi/formularz z `default.ts` przy firmie od jednej branży
 3. Stare kolory / niebieski glow z poprzedniego klienta
 4. Placeholderowe zdjęcia i favicon
-5. Zapasowe z TOOLS mimo że klient ma własne zdjęcia (≥3)
-6. `siteCity` z wieloma miastami
-7. `siteName` ≠ `companyLegalName` w RODO
-8. Logo JPG z białym tłem na ciemnym headerze
+5. Zapasowe z TOOLS zamiast zdjęć klienta, gdy klient ma własne realizacje
+6. Galeria ucięta do 6 mimo że klient ma więcej zdjęć
+7. `siteCity` z wieloma miastami
+8. `siteName` ≠ `companyLegalName` w RODO
+9. Logo JPG z białym tłem na ciemnym headerze
 
 Pełna lista: [PROMPT-PERSONALIZACJA.md](./PROMPT-PERSONALIZACJA.md) → „Najczęstsze błędy”.
 

@@ -294,34 +294,48 @@ Znajdź **bezpośrednie URL-e** zdjęć realizacji/montaży na stronie klienta.
 **Dla produkcji (lepiej):** pobierz do `public/gallery/`, opcjonalnie `node scripts/optimize-gallery.mjs` (JPG→WebP).
 
 W presetcie ustaw:
-- `heroImage` — tło hero
-- `ogImage` — ten sam co hero lub najlepsze zdjęcie
-- `gallery[]` — tyle pozycji, ile ma sens (nie sztucznie do 6); każda: `image`, `alt`, `caption`
+- `heroImage` — najlepsze zdjęcie (priorytet: z realizacji **klienta**)
+- `ogImage` — ten sam co hero lub najlepsze zdjęcie z galerii
+- `gallery[]` — według reguł poniżej; każda pozycja: `image`, `alt`, `caption`
 
-**Galeria na stronie:** desktop pokazuje 3 zdjęcia + przycisk „Pokaż wszystkie” (już wbudowane). Przy >3 zdjęciach dodaj je do `gallery[]` — expand zadziała sam.
+**Galeria na stronie:** desktop pokazuje 3 zdjęcia + przycisk „Pokaż wszystkie”. Przy >3 pozycjach w `gallery[]` expand zadziała sam.
 
 `alt` i `caption`: konkretne, SEO-friendly, spójne z `gallerySectionSubtitle` (bez keyword stuffingu).
 
-#### Zdjęcia zapasowe — TYLKO gdy brak realizacji klienta
+#### Realizacje — priorytet klienta, potem zapasowe
 
-**Użyj przykładowych zdjęć wyłącznie wtedy**, gdy na stronie klienta / Maps **nie ma** sensownych zdjęć realizacji **albo jest ich mniej niż 3** (łącznie hero + galeria).
+**Kolejność zawsze:** najpierw zdjęcia ze **strony klienta** (lub jego FB / galerii), dopiero potem uzupełnienie z folderów zapasowych.
 
-**Priorytet zawsze:** zdjęcia klienta. Zapasowe = ostateczność na podgląd free value, nie zamiast ich materiałów gdy są dostępne.
+**Ile wpisać do `gallery[]`:**
 
-| Profil firmy | Folder ze zdjęciami przykładowymi |
-|--------------|-----------------------------------|
+| Realizacje u klienta | Co robisz |
+|----------------------|-----------|
+| **0** (brak sensownych zdjęć) | **6 zdjęć** z folderu zapasowego (patrz tabela poniżej) |
+| **1–5** | Wszystkie zdjęcia klienta **+ dopełnienie z zapasowych do 6** łącznie |
+| **6** | Tylko zdjęcia klienta (6 pozycji) |
+| **7+** | **Wstaw wszystkie** realizacje klienta — **nie ucinaj do 6** |
+
+Przykład: klient ma 2 zdjęcia → 2 jego + 4 zapasowe = 6 w `gallery[]`.  
+Przykład: klient ma 9 zdjęć → wszystkie 9 w `gallery[]`.
+
+**Foldery zapasowe** (tylko do uzupełnienia, gdy brakuje u klienta):
+
+| Profil firmy | Folder |
+|--------------|--------|
 | Klimatyzacja (główny filar) | `C:\Users\Tymek\Desktop\TOOLS\KLIMATYZACJA` |
 | Pompy ciepła, kotły, ogrzewanie (główny filar) | `C:\Users\Tymek\Desktop\TOOLS\POMPY KOTLY` |
-| Mix HVAC | folder pasujący do **głównego** filaru z kroku zero (klima → KLIMATYZACJA, pompy/kotły → POMPY KOTLY) |
+| Mix HVAC | folder **głównego** filaru z kroku zero |
 
 **Procedura:**
-1. Skopiuj wybrane pliki do `public/gallery/` (np. `klient-1.jpg`, `klient-2.jpg`…)
-2. Opcjonalnie: `node scripts/optimize-gallery.mjs`
-3. Ustaw `heroImage`, `ogImage` i `gallery[]` w presetcie
-4. **`alt` i `caption`** dopasuj do profilu klienta i miasta (np. „Montaż klimatyzacji split, Kraków”) — nie pisz, że to stock
-5. W raporcie końcowym **zaznacz**, że użyto zdjęć zapasowych i ile własnych znalazłeś u klienta
+1. Zbierz wszystkie sensowne zdjęcia klienta → policz ile masz
+2. Jeśli <6 → dobierz brakujące z odpowiedniego folderu TOOLS (nie duplikuj tematycznie tych samych ujęć)
+3. Skopiuj pliki do `public/gallery/` (klient + ewentualnie zapasowe)
+4. Opcjonalnie: `node scripts/optimize-gallery.mjs`
+5. Ustaw `heroImage` (najlepsze zdjęcie klienta, jeśli jest), `ogImage` i pełne `gallery[]`
+6. **`alt` i `caption`** dopasuj do profilu i miasta klienta — nie pisz, że to stock
+7. W raporcie końcowym: ile zdjęć od klienta, ile zapasowych (jeśli były)
 
-**Nie używaj** placeholderów SVG z szablonu, gdy możesz wziąć zapasowe zdjęcia z powyższych folderów.
+**Nie używaj** placeholderów SVG z szablonu, gdy możesz wziąć zdjęcia klienta lub zapasowe z TOOLS.
 
 ### 5. Usługi, FAQ, formularz
 
@@ -456,7 +470,7 @@ Krótko podsumuj:
 - Profil firmy (1 zdanie)
 - Skąd wzięto telefon i NIP (Maps / strona)
 - `googleReviewCount` z Maps
-- Liczba zdjęć w galerii
+- Liczba zdjęć w galerii (ile od klienta, ile zapasowych z TOOLS)
 - Czy formularz odzwierciedla `services[]`
 
 ---
@@ -472,7 +486,7 @@ Krótko podsumuj:
 - [ ] Kolory marki w `styles.css` — glow tła, sekcje, timeline, **hover przycisków** (bez niebieskiego z szablonu)
 - [ ] Favicon = wycinek/kwadrat logo (`faviconUrl`), nie domyślny szablon
 - [ ] Logo: `logoIncludesName` poprawnie; przy samej ikonie — widoczny `siteName` obok
-- [ ] Hero i galeria = zdjęcia klienta; **tylko przy <3 zdjęciach** → zapasowe z folderów TOOLS (patrz sekcja 4)
+- [ ] **Galeria:** priorytet zdjęć klienta; 0 → 6 zapasowych; 1–5 → dopełnij do 6; 7+ → **wszystkie** realizacje klienta
 - [ ] Telefon, e-mail, NIP, REGON, godziny — poprawne
 - [ ] `mapsUrl` / `googleReviewsUrl` — działający link Maps
 - [ ] Usługi + ikony = **priorytetowa oferta** (H1 i karty usług spójne ze stroną klienta)
@@ -503,10 +517,11 @@ Krótko podsumuj:
 7. `siteCity` z listą wielu miast
 8. Formularz z usługami, których firma nie oferuje
 9. Placeholderowe SVG zamiast zdjęć klienta lub zapasowych z TOOLS
-10. Zapasowe zdjęcia z TOOLS użyte mimo że klient ma ≥3 własne realizacje
-11. Kolory z motywu WP zamiast z logo
-12. Logo JPG z białym tłem na ciemnym tle
-13. `siteName` i `companyLegalName` pomylone w RODO/stopce
+10. Zapasowe z TOOLS **zamiast** zdjęć klienta, gdy klient ma własne realizacje
+11. Ucięcie galerii do 6, gdy klient ma **więcej niż 6** realizacji (wstaw wszystkie!)
+12. Kolory z motywu WP zamiast z logo
+13. Logo JPG z białym tłem na ciemnym tle
+14. `siteName` i `companyLegalName` pomylone w RODO/stopce
 
 ---
 
